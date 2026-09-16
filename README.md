@@ -61,6 +61,20 @@ export const WORLD_CONFIG = {
 | **R** | Reset Vehicle | Right vehicle if overturned |
 | **Mouse** | 360° Look | Look around and orbit camera smoothly |
 
+### 📱 Mobile & Touch Controls
+
+The game features automatic mobile device and touch screen detection:
+
+* **Virtual Analog Joystick (Bottom-Left)**: Smooth thumb navigation to walk, steer, accelerate, and reverse.
+* **Touch Look (Right Half of Screen)**: Swipe across the screen to orbit the 360° camera freely without pointer lock.
+* **Pinch to Zoom**: Two-finger pinch gesture to cycle camera perspective.
+* **Contextual Action Buttons (Bottom-Right)**:
+  - **RIDE / DRIVE / DISMOUNT**: Large tactile button that pulses when near a vehicle or seated.
+  - **JUMP / HANDBRAKE**: Jump on foot, or sharp drift brake when driving.
+  - **SPRINT / TURBO**: Boost speed on foot or high-velocity throttle in vehicles.
+* **Quick Pill Toolbar (Top-Right)**: One-tap buttons for Camera View (`VIEW`), Horn (`HORN`), Headlights (`LIGHT`), Vehicle Reset (`RESET`), and Fullscreen (`FULL`).
+* **Responsive Layout**: Adapts automatically to phone portrait and landscape screens with notch/safe-area support (`env(safe-area-inset)`).
+
 ---
 
 ## 🌴 World Regions (Continuous Environment)

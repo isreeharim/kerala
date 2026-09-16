@@ -16,13 +16,17 @@ export class InputManager {
   // Mouse camera rotation
   public mouseDeltaX: number = 0;
   public mouseDeltaY: number = 0;
+  public touchCameraDeltaX: number = 0;
+  public touchCameraDeltaY: number = 0;
   public isPointerLocked: boolean = false;
   public isMouseDown: boolean = false;
+  public isTouchDevice: boolean = false;
 
   private canvas: HTMLCanvasElement;
 
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
+    this.isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     this.setupKeyboard();
     this.setupMouse();
   }
@@ -208,10 +212,20 @@ export class InputManager {
     return false;
   }
 
+  public addTouchCameraDelta(dx: number, dy: number): void {
+    this.touchCameraDeltaX += dx;
+    this.touchCameraDeltaY += dy;
+  }
+
   public getAndResetMouseDelta(): { x: number; y: number } {
-    const delta = { x: this.mouseDeltaX, y: this.mouseDeltaY };
+    const delta = {
+      x: this.mouseDeltaX + this.touchCameraDeltaX,
+      y: this.mouseDeltaY + this.touchCameraDeltaY
+    };
     this.mouseDeltaX = 0;
     this.mouseDeltaY = 0;
+    this.touchCameraDeltaX = 0;
+    this.touchCameraDeltaY = 0;
     return delta;
   }
 }

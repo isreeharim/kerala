@@ -14,6 +14,7 @@ import { Bike } from './entities/Bike';
 import { Car } from './entities/Car';
 import { HUD } from './ui/HUD';
 import { MiniMap } from './ui/MiniMap';
+import { TouchControls } from './core/TouchControls';
 
 class KeralaHorizonsGame {
   private canvas: HTMLCanvasElement;
@@ -22,6 +23,7 @@ class KeralaHorizonsGame {
   private renderer: THREE.WebGLRenderer;
 
   private input: InputManager;
+  private touchControls: TouchControls;
   private sound: SoundFX;
   private physics: PhysicsWorld;
   private cameraController: CameraController;
@@ -126,10 +128,15 @@ class KeralaHorizonsGame {
 
     // 9. Controllers & UI
     this.input = new InputManager(this.canvas);
+    this.touchControls = new TouchControls(this.input);
     this.sound = new SoundFX();
     this.cameraController = new CameraController(this.camera, this.terrain);
     this.hud = new HUD();
     this.minimap = new MiniMap('minimap-canvas');
+
+    // Adapt pixel ratio for battery & performance on mobile
+    const maxPR = this.input.isTouchDevice ? 1.5 : 2;
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, maxPR));
 
     this.setupFastTravel();
     this.setupMuteUI();
@@ -195,35 +202,68 @@ class KeralaHorizonsGame {
     const modal = document.getElementById('start-modal');
     const btn = document.getElementById('btn-start');
 
-    const beginGame = () => {
+    const beginGame = (e?: Event) => {
+      e?.preventDefault();
       this.sound.init();
       modal?.classList.add('hidden');
-      this.canvas.requestPointerLock?.();
+      try {
+        this.canvas.requestPointerLock?.();
+      } catch (_) {}
     };
 
     btn?.addEventListener('click', beginGame);
+    btn?.addEventListener('touchend', beginGame);
     modal?.addEventListener('click', (e) => {
-      if (e.target === modal) beginGame();
+      if (e.target === modal) beginGame(e);
+    });
+    modal?.addEventListener('touchend', (e) => {
+      if (e.target === modal) beginGame(e);
     });
   }
 
   private setupEvents(): void {
+    const checkOrientation = () => {
+      const hint = document.getElementById('orientation-hint');
+      if (hint && this.touchControls.isMobileDevice) {
+        if (window.innerHeight > window.innerWidth) {
+          hint.classList.add('visible');
+        } else {
+          hint.classList.remove('visible');
+        }
+      }
+    };
+
     window.addEventListener('resize', () => {
       this.camera.aspect = window.innerWidth / window.innerHeight;
       this.camera.updateProjectionMatrix();
       this.renderer.setSize(window.innerWidth, window.innerHeight);
+      checkOrientation();
     });
+
+    window.addEventListener('orientationchange', () => {
+      setTimeout(checkOrientation, 250);
+    });
+
+    document.getElementById('btn-close-hint')?.addEventListener('click', () => {
+      document.getElementById('orientation-hint')?.classList.remove('visible');
+    });
+
+    setTimeout(checkOrientation, 800);
   }
 
   private handleVehicleMounting(): void {
     const interact = this.input.consumeInteract();
+    let canMount = false;
+    let mountType: 'BIKE' | 'CAR' | null = null;
 
     if (this.playerMode === 'ON_FOOT') {
       const distToBike = this.character.position.distanceTo(this.bike.position);
       const distToCar = this.character.position.distanceTo(this.car.position);
 
       if (distToBike < 3.2) {
-        this.hud.showInteractionPrompt(true, 'Press F to Drive Motorcycle');
+        canMount = true;
+        mountType = 'BIKE';
+        this.hud.showInteractionPrompt(true, 'Press F / Tap RIDE to Drive Motorcycle');
         if (interact) {
           this.playerMode = 'BIKE';
           this.sound.playDoorThud();
@@ -233,7 +273,9 @@ class KeralaHorizonsGame {
           this.hud.showInteractionPrompt(false);
         }
       } else if (distToCar < 3.8) {
-        this.hud.showInteractionPrompt(true, 'Press F to Drive Car');
+        canMount = true;
+        mountType = 'CAR';
+        this.hud.showInteractionPrompt(true, 'Press F / Tap DRIVE to Drive Car');
         if (interact) {
           this.playerMode = 'CAR';
           this.sound.playDoorThud();
@@ -245,7 +287,9 @@ class KeralaHorizonsGame {
         this.hud.showInteractionPrompt(false);
       }
     } else {
-      this.hud.showInteractionPrompt(true, 'Press F to Exit Vehicle');
+      canMount = true;
+      mountType = this.playerMode;
+      this.hud.showInteractionPrompt(true, 'Press F / Tap DISMOUNT to Exit');
 
       if (interact) {
         if (this.playerMode === 'BIKE') {
@@ -268,6 +312,8 @@ class KeralaHorizonsGame {
         this.hud.showInteractionPrompt(false);
       }
     }
+
+    this.touchControls.updateUI(this.playerMode, canMount, mountType);
   }
 
   private checkWorldBoundariesAndWater(activePos: THREE.Vector3): void {
