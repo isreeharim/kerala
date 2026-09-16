@@ -150,13 +150,14 @@ class KeralaHorizonsGame {
 
   private setupFastTravel(): void {
     this.hud.onFastTravelCallback = (tx: number, tz: number) => {
-      let targetX = Math.max(-420, Math.min(420, tx));
-      let targetZ = Math.max(-420, Math.min(420, tz));
+      let targetX = Math.max(-440, Math.min(440, tx));
+      let targetZ = Math.max(-440, Math.min(440, tz));
 
       // If fast traveling near Cherupuzha river water, snap safely to bridge deck
-      if (targetZ >= 285 && targetZ <= 335 && Math.abs(targetX) < 25) {
-        targetX = 0;
-        targetZ = 310;
+      // Cherupuzha river is at z≈347 in game space (real lat 11.107°N projected)
+      if (targetZ >= 310 && targetZ <= 380 && Math.abs(targetX) < 30) {
+        targetX = -21;
+        targetZ = 347;
       }
 
       if (this.playerMode === 'BIKE') {
@@ -317,12 +318,13 @@ class KeralaHorizonsGame {
   }
 
   private checkWorldBoundariesAndWater(activePos: THREE.Vector3): void {
-    activePos.x = Math.max(-430, Math.min(430, activePos.x));
-    activePos.z = Math.max(-430, Math.min(430, activePos.z));
+    activePos.x = Math.max(-450, Math.min(450, activePos.x));
+    activePos.z = Math.max(-450, Math.min(450, activePos.z));
 
     // Cherupuzha River Water Safety
-    if (activePos.y < 0.5 && activePos.z >= 285 && activePos.z <= 335) {
-      activePos.set(0, 3.5, 345);
+    // River valley at z≈347 (from real OSM lat 11.107°N → game z ≈ +347m)
+    if (activePos.y < 0.5 && activePos.z >= 305 && activePos.z <= 390) {
+      activePos.set(-21, 4.5, 347);
       if (this.playerMode === 'BIKE') {
         this.bike.resetOrientation();
       } else if (this.playerMode === 'CAR') {
@@ -335,6 +337,7 @@ class KeralaHorizonsGame {
 
   private animate(): void {
     requestAnimationFrame(this.animate);
+
 
     const delta = Math.min(this.clock.getDelta(), 0.08);
     const time = this.clock.getElapsedTime();

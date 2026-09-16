@@ -40,64 +40,64 @@ export class HUD {
     {
       id: 'kacherippadi',
       name: 'Kacherippadi Town Center',
-      sub: 'Main crossroads & town center',
+      sub: 'Main crossroads & town center – SH28/SH71/NH766',
       icon: '🏙️',
       x: 0,
       z: 0,
-      desc: 'Central bustling crossroads connecting all major highways'
+      desc: 'Central Manjeri crossroads where SH28 (Calicut Road), SH71 (Malappuram Road) and NH766 Bypass all converge'
     },
     {
-      id: 'igbt',
-      name: 'Indira Gandhi Bus Terminal',
-      sub: 'New Bus Stand & KSRTC bays',
+      id: 'ksrtc_bus_terminal',
+      name: 'KSRTC Bus Terminal',
+      sub: 'New Manjeri Bus Stand',
       icon: '🚌',
-      x: 100,
-      z: -35,
-      desc: 'Central transport hub with extensive bus departure platforms'
+      x: -188,
+      z: 103,
+      desc: 'Manjeri KSRTC Bus Terminal along the Old Bus Stand Road — major intercity transit hub'
     },
     {
       id: 'old_bus_stand',
       name: 'Old Bus Stand & Market',
-      sub: 'Commercial core & shopping arcade',
+      sub: 'Old Bus Stand Street, west Manjeri',
       icon: '🛍️',
-      x: -115,
-      z: 60,
-      desc: 'Historic shopping district with fresh markets and tea stalls'
+      x: -318,
+      z: 66,
+      desc: 'Historic commercial district and old bus terminus with fresh produce markets'
     },
     {
       id: 'court',
       name: 'District & Sessions Court',
-      sub: 'Court Road administrative complex',
+      sub: 'Manjeri District Court Complex',
       icon: '⚖️',
-      x: 42,
-      z: 165,
-      desc: 'Judicial headquarters and Head Post Office on Court Hill'
+      x: 178,
+      z: -35,
+      desc: 'Judicial complex on Court Road — Manjeri District Court and Government offices'
     },
     {
       id: 'med_college',
       name: 'Govt. Medical College Hospital',
-      sub: 'Melakkam health campus (24h ER)',
+      sub: 'Melakkam campus – 24h Emergency',
       icon: '🏥',
-      x: -270,
-      z: -175,
-      desc: 'Major tertiary hospital & medical college serving Malabar'
+      x: -31,
+      z: -196,
+      desc: 'Government Medical College Manjeri — tertiary care hospital serving northern Malappuram district'
     },
     {
-      id: 'cherupuzha',
+      id: 'cherupuzha_bridge',
       name: 'Cherupuzha River Bridge',
-      sub: 'Anakkayam Road crossing',
+      sub: 'SH71 river crossing, south Manjeri',
       icon: '🌉',
-      x: 0,
-      z: 310,
-      desc: 'Scenic river crossing over the Kadalundi river tributary'
+      x: -21,
+      z: 347,
+      desc: 'Scenic bridge over the Cherupuzha river on Malappuram Road heading south'
     },
     {
       id: 'vettekkode',
       name: 'Vettekkode Hill Viewpoint',
-      sub: 'Scenic hilltop summit (78m)',
+      sub: 'Eastern Manjeri scenic hills',
       icon: '⛰️',
-      x: 330,
-      z: 160,
+      x: 316,
+      z: -267,
       desc: 'Panoramic hilltop overlooking the rolling Manjeri town valley'
     }
   ];
@@ -253,27 +253,66 @@ export class HUD {
     let regionName = '';
     let regionDesc = '';
 
-    if (z > 240) {
+    // Cherupuzha River Valley (far south, SH71 goes through here)
+    // River at z≈+347 in game space
+    if (z > 280) {
       regionName = 'Cherupuzha River Valley';
-      regionDesc = 'Anakkayam road bridge & riverbank palm groves';
-    } else if (x < -140 && z < -60) {
-      regionName = 'Melakkam • Medical College';
-      regionDesc = 'Govt. Medical College Hospital & Melakkam Ridge';
-    } else if (x > 180 && z > 40) {
+      regionDesc = 'SH71 river crossing — palm groves and river banks of Cherupuzha';
+    }
+    // Govt Medical College on Melakkam Ridge (north of junction)
+    // Medical College at game x≈-31, z≈-196
+    else if (z < -150 && x > -150 && x < 100) {
+      regionName = 'Melakkam • Govt. Medical College';
+      regionDesc = 'Govt. Medical College Hospital Manjeri — Melakkam health campus';
+    }
+    // Vettekkode Hills (north-east, along Court Road then up the hill)
+    // Vettekkode at game x≈+316, z≈-267
+    else if (x > 200 && z < -180) {
       regionName = 'Vettekkode Hills';
-      regionDesc = 'Scenic eastern hills & panoramic viewpoint';
-    } else if (z > 80 && x > 10) {
-      regionName = 'Court Road • Judicial Complex';
-      regionDesc = 'District & Sessions Court and Post Office';
-    } else if (x < -60 && z > 20) {
+      regionDesc = 'Scenic eastern hills of Manjeri — panoramic hilltop viewpoint';
+    }
+    // District Court Complex (east along Court Road)
+    // Court at x≈+178, z≈-35
+    else if (x > 100 && z > -120 && z < 50) {
+      regionName = 'Court Road • District Court';
+      regionDesc = 'Manjeri District & Sessions Court — judicial complex and government offices';
+    }
+    // KSRTC Bus Terminal area (west of town along Bus Stand Road)
+    // KSRTC at x≈-188, z≈+103
+    else if (x < -130 && z > 20 && z < 200) {
+      regionName = 'KSRTC Bus Terminal';
+      regionDesc = 'Manjeri Bus Terminal — KSRTC services to Kozhikode, Malappuram and beyond';
+    }
+    // Old Bus Stand (far west)
+    // Old Bus Stand at x≈-318, z≈+66
+    else if (x < -250 && z > -50 && z < 180) {
       regionName = 'Old Bus Stand & Market';
-      regionDesc = 'Historic commercial core & municipal shopping';
-    } else if (x > 50 && z < -10) {
-      regionName = 'Indira Gandhi Bus Terminal';
-      regionDesc = 'New Bus Stand transport hub & KSRTC docks';
-    } else {
+      regionDesc = 'Historic Old Bus Stand — commercial market street and tea stalls';
+    }
+    // NH766 Bypass north corridor
+    else if (z < -200 && x < -100) {
+      regionName = 'NH 766 Bypass North';
+      regionDesc = 'Manjeri Bypass — National Highway 766 through the northern ridge';
+    }
+    // Nilambur Road (NE direction)
+    else if (x > 60 && z < -80) {
+      regionName = 'Nilambur Road';
+      regionDesc = 'Heading north-east on MD Road toward Nilambur forest area';
+    }
+    // Pandikkad Road (NW direction)
+    else if (x < -50 && z < -80) {
+      regionName = 'Pandikkad Road';
+      regionDesc = 'Heading north-west on Pandikkad Road through Manjeri suburbs';
+    }
+    // Mannarkad Road (south-east direction)
+    else if (x > 80 && z > 80) {
+      regionName = 'Mannarkad Road';
+      regionDesc = 'Heading south-east toward Mannarkad along the SH71 spur';
+    }
+    // Default — Kacherippadi Junction town center
+    else {
       regionName = 'Kacherippadi Town Center';
-      regionDesc = 'Central highway crossroads & Malabar tea stalls';
+      regionDesc = 'Central Manjeri crossroads — SH28, SH71 & NH766 converge here';
     }
 
     if (regionName !== this.currentRegion) {

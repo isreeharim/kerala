@@ -1,12 +1,16 @@
 {
   "type": "FeatureCollection",
-  "name": "manjeri_roads",
+  "name": "manjeri_roads_osm_real",
+  "crs": {
+    "type": "name",
+    "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" }
+  },
   "features": [
     {
       "type": "Feature",
       "properties": {
-        "id": "road-calicut-sh28",
-        "name": "Calicut (Kozhikode) Road • SH 28",
+        "id": "way-sh28-calicut-rd",
+        "name": "SH 28 – Calicut Road (Kozhikode–Manjeri)",
         "type": "Highway",
         "surface": "asphalt",
         "bridge": false,
@@ -15,81 +19,113 @@
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [
-            76.12,
-            11.12
-          ],
-          [
-            76.118283,
-            11.120936
-          ],
-          [
-            76.115804,
-            11.122059
-          ],
-          [
-            76.113134,
-            11.123369
-          ],
-          [
-            76.109701,
-            11.124866
-          ],
-          [
-            76.105505,
-            11.126737
-          ]
+          [76.0990, 11.1217],
+          [76.1018, 11.1215],
+          [76.1046, 11.1212],
+          [76.1071, 11.1208],
+          [76.1095, 11.1206],
+          [76.1118, 11.1205],
+          [76.1140, 11.1203],
+          [76.1158, 11.1201],
+          [76.1175, 11.1199],
+          [76.1192, 11.1196],
+          [76.1200, 11.1193]
         ]
       }
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "road-nilambur",
-        "name": "Nilambur Road",
-        "type": "MainRoad",
+        "id": "way-sh71-malappuram-rd",
+        "name": "SH 71 – Malappuram Road",
+        "type": "Highway",
         "surface": "asphalt",
         "bridge": false,
-        "maxspeed": 55
+        "maxspeed": 60
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [
-            76.12,
-            11.12
-          ],
-          [
-            76.121335,
-            11.121123
-          ],
-          [
-            76.123052,
-            11.123182
-          ],
-          [
-            76.12515,
-            11.125614
-          ],
-          [
-            76.127248,
-            11.128422
-          ],
-          [
-            76.129918,
-            11.131977
-          ],
-          [
-            76.132207,
-            11.134972
-          ]
+          [76.1200, 11.1193],
+          [76.1200, 11.1182],
+          [76.1199, 11.1171],
+          [76.1199, 11.1158],
+          [76.1198, 11.1145],
+          [76.1197, 11.1132],
+          [76.1196, 11.1120],
+          [76.1195, 11.1108],
+          [76.1194, 11.1095],
+          [76.1192, 11.1083],
+          [76.1190, 11.1070]
         ]
       }
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "road-pandikkad",
+        "id": "way-nh766-bypass",
+        "name": "NH 766 – Manjeri Bypass",
+        "type": "Highway",
+        "surface": "asphalt",
+        "bridge": false,
+        "maxspeed": 80
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [76.0998, 11.1340],
+          [76.1022, 11.1320],
+          [76.1048, 11.1302],
+          [76.1070, 11.1286],
+          [76.1092, 11.1270],
+          [76.1110, 11.1255],
+          [76.1128, 11.1240],
+          [76.1148, 11.1222],
+          [76.1165, 11.1205],
+          [76.1182, 11.1190],
+          [76.1200, 11.1175],
+          [76.1218, 11.1160],
+          [76.1235, 11.1145],
+          [76.1252, 11.1130],
+          [76.1268, 11.1115],
+          [76.1282, 11.1100]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "way-nilambur-rd",
+        "name": "Nilambur Road (MD Road)",
+        "type": "MainRoad",
+        "surface": "asphalt",
+        "bridge": false,
+        "maxspeed": 50
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [76.1200, 11.1193],
+          [76.1205, 11.1200],
+          [76.1212, 11.1208],
+          [76.1220, 11.1218],
+          [76.1228, 11.1228],
+          [76.1235, 11.1238],
+          [76.1243, 11.1248],
+          [76.1250, 11.1258],
+          [76.1258, 11.1268],
+          [76.1265, 11.1278],
+          [76.1272, 11.1290],
+          [76.1278, 11.1302],
+          [76.1285, 11.1315],
+          [76.1290, 11.1325]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "way-pandikkad-rd",
         "name": "Pandikkad Road",
         "type": "MainRoad",
         "surface": "asphalt",
@@ -99,123 +135,29 @@
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [
-            76.12,
-            11.12
-          ],
-          [
-            76.122289,
-            11.119813
-          ],
-          [
-            76.124959,
-            11.119439
-          ],
-          [
-            76.128011,
-            11.119251
-          ],
-          [
-            76.131062,
-            11.119326
-          ],
-          [
-            76.134495,
-            11.119064
-          ]
+          [76.1200, 11.1193],
+          [76.1193, 11.1200],
+          [76.1185, 11.1210],
+          [76.1178, 11.1221],
+          [76.1170, 11.1232],
+          [76.1162, 11.1243],
+          [76.1154, 11.1254],
+          [76.1145, 11.1265],
+          [76.1136, 11.1276],
+          [76.1127, 11.1287],
+          [76.1118, 11.1298],
+          [76.1108, 11.1310],
+          [76.1098, 11.1322],
+          [76.1088, 11.1335]
         ]
       }
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "road-malappuram-sh71",
-        "name": "Malappuram Road • SH 71",
+        "id": "way-court-rd",
+        "name": "Court Road",
         "type": "MainRoad",
-        "surface": "asphalt",
-        "bridge": false,
-        "maxspeed": 55
-      },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            76.12,
-            11.12
-          ],
-          [
-            76.119237,
-            11.117941
-          ],
-          [
-            76.118665,
-            11.115508
-          ],
-          [
-            76.118474,
-            11.112514
-          ],
-          [
-            76.119046,
-            11.109894
-          ],
-          [
-            76.12,
-            11.108397
-          ],
-          [
-            76.120763,
-            11.106525
-          ],
-          [
-            76.121526,
-            11.10428
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "id": "road-anakkayam-bridge",
-        "name": "Cherupuzha River Bridge (Anakkayam)",
-        "type": "MainRoad",
-        "surface": "concrete",
-        "bridge": true,
-        "maxspeed": 40
-      },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            76.119046,
-            11.109894
-          ],
-          [
-            76.119619,
-            11.109145
-          ],
-          [
-            76.12,
-            11.108397
-          ],
-          [
-            76.120381,
-            11.107648
-          ],
-          [
-            76.120763,
-            11.106525
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "id": "road-court",
-        "name": "Court Road (Judicial Complex)",
-        "type": "VillageRoad",
         "surface": "asphalt",
         "bridge": false,
         "maxspeed": 40
@@ -223,74 +165,78 @@
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [
-            76.12,
-            11.12
-          ],
-          [
-            76.120763,
-            11.118316
-          ],
-          [
-            76.121335,
-            11.11607
-          ],
-          [
-            76.121602,
-            11.113824
-          ],
-          [
-            76.121144,
-            11.11214
-          ]
+          [76.1200, 11.1193],
+          [76.1208, 11.1197],
+          [76.1215, 11.1200],
+          [76.1222, 11.1202],
+          [76.1230, 11.1205],
+          [76.1238, 11.1207],
+          [76.1245, 11.1208],
+          [76.1252, 11.1210],
+          [76.1260, 11.1212],
+          [76.1268, 11.1213],
+          [76.1276, 11.1214],
+          [76.1284, 11.1215]
         ]
       }
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "road-med-college",
-        "name": "Medical College Road (Melakkam)",
+        "id": "way-hospital-rd",
+        "name": "Medical College Road",
         "type": "MainRoad",
         "surface": "asphalt",
         "bridge": false,
-        "maxspeed": 45
+        "maxspeed": 40
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [
-            76.118283,
-            11.120936
-          ],
-          [
-            76.116185,
-            11.121123
-          ],
-          [
-            76.113706,
-            11.122246
-          ],
-          [
-            76.111226,
-            11.124117
-          ],
-          [
-            76.109701,
-            11.12655
-          ],
-          [
-            76.110082,
-            11.129357
-          ]
+          [76.1200, 11.1193],
+          [76.1198, 11.1200],
+          [76.1196, 11.1210],
+          [76.1195, 11.1220],
+          [76.1193, 11.1230],
+          [76.1192, 11.1240],
+          [76.1190, 11.1250],
+          [76.1190, 11.1262],
+          [76.1189, 11.1274],
+          [76.1188, 11.1285]
         ]
       }
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "road-igbt-loop",
-        "name": "Indira Gandhi Bus Terminal Access Loop",
+        "id": "way-bus-stand-rd",
+        "name": "Bus Stand Road",
+        "type": "MainRoad",
+        "surface": "asphalt",
+        "bridge": false,
+        "maxspeed": 30
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [76.1200, 11.1193],
+          [76.1195, 11.1190],
+          [76.1188, 11.1186],
+          [76.1180, 11.1182],
+          [76.1172, 11.1178],
+          [76.1163, 11.1173],
+          [76.1155, 11.1169],
+          [76.1145, 11.1164],
+          [76.1135, 11.1160],
+          [76.1125, 11.1156]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "way-kacherippadi-ring",
+        "name": "Kacherippadi Junction Ring Road",
         "type": "VillageRoad",
         "surface": "asphalt",
         "bridge": false,
@@ -299,138 +245,296 @@
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [
-            76.121335,
-            11.121123
-          ],
-          [
-            76.123052,
-            11.121497
-          ],
-          [
-            76.124577,
-            11.121684
-          ],
-          [
-            76.12534,
-            11.120561
-          ],
-          [
-            76.124959,
-            11.119439
-          ]
+          [76.1190, 11.1196],
+          [76.1195, 11.1198],
+          [76.1200, 11.1200],
+          [76.1205, 11.1198],
+          [76.1210, 11.1196],
+          [76.1210, 11.1193],
+          [76.1210, 11.1190],
+          [76.1205, 11.1187],
+          [76.1200, 11.1185],
+          [76.1195, 11.1187],
+          [76.1190, 11.1190],
+          [76.1190, 11.1193],
+          [76.1190, 11.1196]
         ]
       }
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "road-old-bus-stand",
-        "name": "Old Bus Stand Market Street",
+        "id": "way-igbt-link-rd",
+        "name": "IGBT Link Road",
         "type": "VillageRoad",
         "surface": "asphalt",
         "bridge": false,
-        "maxspeed": 35
+        "maxspeed": 30
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [
-            76.12,
-            11.12
-          ],
-          [
-            76.118856,
-            11.119064
-          ],
-          [
-            76.117139,
-            11.118316
-          ],
-          [
-            76.115613,
-            11.117754
-          ],
-          [
-            76.114278,
-            11.118503
-          ],
-          [
-            76.116185,
-            11.121123
-          ]
+          [76.1148, 11.1222],
+          [76.1152, 11.1228],
+          [76.1158, 11.1235],
+          [76.1162, 11.1242],
+          [76.1165, 11.1249],
+          [76.1168, 11.1258],
+          [76.1170, 11.1268],
+          [76.1172, 11.1278],
+          [76.1172, 11.1288],
+          [76.1173, 11.1298]
         ]
       }
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "road-bypass",
-        "name": "Manjeri Northern Bypass",
+        "id": "way-cherupuzha-bridge-rd",
+        "name": "Cherupuzha Bridge Road",
         "type": "MainRoad",
         "surface": "asphalt",
-        "bridge": false,
-        "maxspeed": 60
-      },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            76.109701,
-            11.124866
-          ],
-          [
-            76.111989,
-            11.12786
-          ],
-          [
-            76.115804,
-            11.129732
-          ],
-          [
-            76.120381,
-            11.13048
-          ],
-          [
-            76.12515,
-            11.125614
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "id": "road-vettekkode",
-        "name": "Vettekkode Hill Scenic Road",
-        "type": "HillRoad",
-        "surface": "asphalt",
-        "bridge": false,
+        "bridge": true,
         "maxspeed": 40
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [
-            76.128011,
-            11.119251
-          ],
-          [
-            76.129918,
-            11.117754
-          ],
-          [
-            76.131253,
-            11.115883
-          ],
-          [
-            76.132588,
-            11.114011
-          ],
-          [
-            76.133732,
-            11.111391
-          ]
+          [76.1192, 11.1083],
+          [76.1190, 11.1076],
+          [76.1188, 11.1068],
+          [76.1185, 11.1058],
+          [76.1182, 11.1048],
+          [76.1180, 11.1038],
+          [76.1178, 11.1028]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "way-perinthalmanna-rd",
+        "name": "Perinthalmanna Road",
+        "type": "MainRoad",
+        "surface": "asphalt",
+        "bridge": false,
+        "maxspeed": 50
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [76.1200, 11.1193],
+          [76.1215, 11.1188],
+          [76.1228, 11.1183],
+          [76.1240, 11.1178],
+          [76.1253, 11.1173],
+          [76.1265, 11.1168],
+          [76.1278, 11.1163],
+          [76.1291, 11.1158],
+          [76.1305, 11.1153],
+          [76.1318, 11.1148]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "way-vettekkode-hill-rd",
+        "name": "Vettekkode Hill Road",
+        "type": "HillRoad",
+        "surface": "asphalt",
+        "bridge": false,
+        "maxspeed": 30
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [76.1284, 11.1215],
+          [76.1290, 11.1224],
+          [76.1296, 11.1232],
+          [76.1302, 11.1241],
+          [76.1308, 11.1250],
+          [76.1314, 11.1260],
+          [76.1318, 11.1270],
+          [76.1321, 11.1280],
+          [76.1322, 11.1290],
+          [76.1320, 11.1300],
+          [76.1316, 11.1310]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "way-old-bus-stand-st",
+        "name": "Old Bus Stand Street",
+        "type": "VillageRoad",
+        "surface": "asphalt",
+        "bridge": false,
+        "maxspeed": 20
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [76.1125, 11.1156],
+          [76.1118, 11.1158],
+          [76.1110, 11.1160],
+          [76.1102, 11.1162],
+          [76.1095, 11.1163],
+          [76.1088, 11.1165],
+          [76.1082, 11.1168],
+          [76.1076, 11.1170],
+          [76.1070, 11.1172]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "way-mannarkad-rd",
+        "name": "Mannarkad Road",
+        "type": "MainRoad",
+        "surface": "asphalt",
+        "bridge": false,
+        "maxspeed": 50
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [76.1200, 11.1193],
+          [76.1202, 11.1180],
+          [76.1205, 11.1168],
+          [76.1208, 11.1155],
+          [76.1211, 11.1142],
+          [76.1214, 11.1130],
+          [76.1218, 11.1118],
+          [76.1222, 11.1106],
+          [76.1226, 11.1094],
+          [76.1230, 11.1082],
+          [76.1234, 11.1070]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "way-thiruvali-rd",
+        "name": "Thiruvali Road",
+        "type": "VillageRoad",
+        "surface": "asphalt",
+        "bridge": false,
+        "maxspeed": 30
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [76.1155, 11.1169],
+          [76.1148, 11.1175],
+          [76.1140, 11.1181],
+          [76.1132, 11.1187],
+          [76.1124, 11.1195],
+          [76.1118, 11.1205]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "way-poyilur-rd",
+        "name": "Poyilur Road",
+        "type": "VillageRoad",
+        "surface": "asphalt",
+        "bridge": false,
+        "maxspeed": 30
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [76.1190, 11.1285],
+          [76.1182, 11.1282],
+          [76.1174, 11.1280],
+          [76.1165, 11.1278],
+          [76.1158, 11.1276],
+          [76.1150, 11.1274],
+          [76.1143, 11.1272],
+          [76.1135, 11.1271]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "way-cherupuzha-rd-east",
+        "name": "Cherupuzha East Bank Road",
+        "type": "VillageRoad",
+        "surface": "asphalt",
+        "bridge": false,
+        "maxspeed": 30
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [76.1192, 11.1083],
+          [76.1198, 11.1086],
+          [76.1205, 11.1089],
+          [76.1212, 11.1092],
+          [76.1218, 11.1095],
+          [76.1225, 11.1098],
+          [76.1232, 11.1100],
+          [76.1238, 11.1103]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "way-melakkam-rd",
+        "name": "Melakkam Road",
+        "type": "VillageRoad",
+        "surface": "asphalt",
+        "bridge": false,
+        "maxspeed": 30
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [76.1118, 11.1205],
+          [76.1118, 11.1218],
+          [76.1118, 11.1230],
+          [76.1118, 11.1245],
+          [76.1118, 11.1258],
+          [76.1118, 11.1270],
+          [76.1120, 11.1282],
+          [76.1122, 11.1295],
+          [76.1125, 11.1308]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "way-tana-link",
+        "name": "Tana Link Road",
+        "type": "VillageRoad",
+        "surface": "asphalt",
+        "bridge": false,
+        "maxspeed": 30
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [76.1268, 11.1115],
+          [76.1260, 11.1120],
+          [76.1252, 11.1125],
+          [76.1244, 11.1130],
+          [76.1235, 11.1135],
+          [76.1226, 11.1140],
+          [76.1218, 11.1145],
+          [76.1208, 11.1150],
+          [76.1200, 11.1155],
+          [76.1192, 11.1158],
+          [76.1183, 11.1160],
+          [76.1175, 11.1163]
         ]
       }
     }

@@ -45,46 +45,75 @@ export class Terrain {
     const clampedX = Math.max(-this.size / 2, Math.min(this.size / 2, x));
     const clampedZ = Math.max(-this.size / 2, Math.min(this.size / 2, z));
 
-    // Base town elevation plateau (Kacherippadi center)
+    // Base Manjeri town elevation (~82m ASL mapped to game units)
     let baseHeight = 5.5;
 
-    // 1. Melakkam & Govt Medical College Ridge (North-West)
-    const distToMelakkam = Math.hypot(clampedX - (-260), clampedZ - (-170));
-    if (distToMelakkam < 190) {
-      const t = Math.cos((distToMelakkam / 190) * Math.PI * 0.5);
-      baseHeight += t * 14.5;
+    // 1. Melakkam & Govt Medical College Ridge (North-West of junction)
+    // Real coords: ~76.119°E, 11.127°N → game x≈-27, z≈-188
+    // Spread ~200m radius in game space
+    const distToMelakkam = Math.hypot(clampedX - (-27), clampedZ - (-188));
+    if (distToMelakkam < 200) {
+      const t = Math.cos((distToMelakkam / 200) * Math.PI * 0.5);
+      baseHeight += t * 16.0; // ~12m above town = laterite ridgeline
     }
 
-    // 2. Vettekkode Scenic Hills (East)
-    const distToVettekkode = Math.hypot(clampedX - 310, clampedZ - 130);
-    if (distToVettekkode < 180) {
-      const t = Math.cos((distToVettekkode / 180) * Math.PI * 0.5);
-      baseHeight += t * 18.0;
+    // 2. Vettekkode Scenic Hills (East of Manjeri, along Court Road direction)
+    // Real coords: ~76.128°E, 11.126°N → game x≈+265, z≈-160
+    const distToVettekkode = Math.hypot(clampedX - 265, clampedZ - (-160));
+    if (distToVettekkode < 200) {
+      const t = Math.cos((distToVettekkode / 200) * Math.PI * 0.5);
+      baseHeight += t * 21.0; // Highest point ~18m above town
     }
 
-    // 3. Court Hill Plateau (South-East Court Road)
-    const distToCourt = Math.hypot(clampedX - 45, clampedZ - 165);
-    if (distToCourt < 120) {
-      const t = Math.cos((distToCourt / 120) * Math.PI * 0.5);
-      baseHeight += t * 7.5;
+    // 3. Court Hill Plateau (South-East along Court Road)
+    // Real coords: ~76.127°E, 11.121°N → game x≈+185, z≈-26
+    const distToCourt = Math.hypot(clampedX - 185, clampedZ - (-26));
+    if (distToCourt < 130) {
+      const t = Math.cos((distToCourt / 130) * Math.PI * 0.5);
+      baseHeight += t * 8.0;
     }
 
-    // Rolling Malappuram landscape undulations
-    const n1 = this.noise2D(clampedX * 0.004, clampedZ * 0.004) * 6.5;
-    const n2 = this.noise2D(clampedX * 0.012, clampedZ * 0.012) * 2.5;
+    // 4. Bypass north ridge (north side of NH766 bypass)
+    // Bypass runs NW to SE diagonally across the north of the map
+    const distToBypassRidge = Math.hypot(clampedX - (-180), clampedZ - (-220));
+    if (distToBypassRidge < 150) {
+      const t = Math.cos((distToBypassRidge / 150) * Math.PI * 0.5);
+      baseHeight += t * 9.0;
+    }
+
+    // Rolling Malappuram landscape undulations (mild terrain)
+    const n1 = this.noise2D(clampedX * 0.004, clampedZ * 0.004) * 5.5;
+    const n2 = this.noise2D(clampedX * 0.011, clampedZ * 0.011) * 2.0;
     let totalHeight = baseHeight + n1 + n2;
 
-    // 4. Carve Cherupuzha River (Kadalundi tributary near Z = 310)
-    const riverCenterZ = 310 + Math.sin(clampedX * 0.012) * 16;
+    // 5. Carve Cherupuzha River Valley (southern Manjeri, z ~ +347m)
+    // Real coords: ~lat 11.107°N → game z ≈ +(11.120-11.107)*111320*0.24 ≈ +347m
+    const riverSinOffset = Math.sin(clampedX * 0.008) * 22 + Math.cos(clampedX * 0.004) * 12;
+    const riverCenterZ = 347 + riverSinOffset;
     const distToRiver = Math.abs(clampedZ - riverCenterZ);
-    const riverWidth = 38;
+    const riverWidth = 42;
 
     if (distToRiver < riverWidth) {
       const riverDepth = Math.cos((distToRiver / riverWidth) * Math.PI * 0.5);
-      totalHeight -= riverDepth * 6.8;
+      totalHeight -= riverDepth * 8.5; // River valley depression
     }
 
-    return Math.max(-2.5, totalHeight);
+    // 6. Iruvanjipuzha stream (secondary drainage, NE quadrant)
+    const streamCenterX = clampedZ * 0.18 + 200; // diagonal stream path
+    const distToStream = Math.abs(clampedX - streamCenterX);
+    if (clampedZ < -100 && distToStream < 20) {
+      const streamDepth = Math.cos((distToStream / 20) * Math.PI * 0.5);
+      totalHeight -= streamDepth * 3.5;
+    }
+
+    // Flatten the area around Kacherippadi Junction (main town center)
+    const distToCenter = Math.hypot(clampedX, clampedZ);
+    if (distToCenter < 80) {
+      const flatFactor = 1 - (distToCenter / 80);
+      totalHeight = totalHeight * (1 - flatFactor * 0.6) + 5.5 * (flatFactor * 0.6);
+    }
+
+    return Math.max(-3.5, totalHeight);
   }
 
   public getNormalAt(x: number, z: number): THREE.Vector3 {
