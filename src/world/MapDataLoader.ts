@@ -63,6 +63,7 @@ export interface BuildingProperties {
     | 'Houseboat'
     | 'Viewpoint';
   levels?: number;
+  rotation?: number;
 }
 
 export interface LocalPoint2D {

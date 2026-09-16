@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { Terrain } from '../world/Terrain';
 import { RoadSystem } from '../world/RoadSystem';
 import { Vehicle, VehicleInput } from './Vehicle';
+import { BuildingCollider, resolveBuildingCollision } from '../world/ObstacleCollider';
 
 export class Car extends Vehicle {
   private bodyGroup: THREE.Group = new THREE.Group();
@@ -15,8 +16,13 @@ export class Car extends Vehicle {
   private headlights: THREE.SpotLight[] = [];
   private headlightMeshes: THREE.Mesh[] = [];
 
-  constructor(terrain: Terrain, roadSystem: RoadSystem, initialPos?: THREE.Vector3) {
-    super(terrain, roadSystem, initialPos);
+  constructor(
+    terrain: Terrain,
+    roadSystem: RoadSystem,
+    initialPos?: THREE.Vector3,
+    buildingColliders: BuildingCollider[] = []
+  ) {
+    super(terrain, roadSystem, initialPos, buildingColliders);
 
     this.maxSpeed = 32; // ~115 km/h
     this.acceleration = 16;
@@ -228,6 +234,14 @@ export class Car extends Vehicle {
 
     const forwardVec = new THREE.Vector3(0, 0, 1).applyEuler(new THREE.Euler(0, this.rotation.y, 0));
     this.position.addScaledVector(forwardVec, this.speed * delta);
+
+    // Prevent car from going through buildings
+    if (this.buildingColliders.length > 0) {
+      const hit = resolveBuildingCollision(this.position, 2.0, this.buildingColliders);
+      if (hit && Math.abs(this.speed) > 1) {
+        this.speed = Math.max(-2, this.speed * -0.25); // bounce and stop
+      }
+    }
 
     const wheelSpin = (this.speed * delta) / 0.38;
     this.frontLeftWheel.rotation.x += wheelSpin;

@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { Terrain } from '../world/Terrain';
 import { RoadSystem } from '../world/RoadSystem';
+import { BuildingCollider } from '../world/ObstacleCollider';
 
 export interface VehicleInput {
   forward: boolean;
@@ -23,13 +24,20 @@ export abstract class Vehicle {
   public turnSpeed: number = 2.4;
   public steerAngle: number = 0;
   public headlightsOn: boolean = true;
+  public buildingColliders: BuildingCollider[] = [];
 
   protected terrain: Terrain;
   protected roadSystem: RoadSystem;
 
-  constructor(terrain: Terrain, roadSystem: RoadSystem, initialPos?: THREE.Vector3) {
+  constructor(
+    terrain: Terrain,
+    roadSystem: RoadSystem,
+    initialPos?: THREE.Vector3,
+    buildingColliders: BuildingCollider[] = []
+  ) {
     this.terrain = terrain;
     this.roadSystem = roadSystem;
+    this.buildingColliders = buildingColliders;
     if (initialPos) {
       this.position.copy(initialPos);
     }

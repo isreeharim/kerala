@@ -105,7 +105,7 @@ class KeralaHorizonsGame {
     this.roadSystem = new RoadSystem(this.terrain, this.physics);
     this.scene.add(this.roadSystem.group);
 
-    this.keralaAssets = new KeralaAssets(this.terrain);
+    this.keralaAssets = new KeralaAssets(this.terrain, this.physics);
     this.scene.add(this.keralaAssets.group);
 
     this.vegetation = new Vegetation(this.terrain);
@@ -116,14 +116,14 @@ class KeralaHorizonsGame {
     this.keralaAssets.group.children.forEach((child) => this.streamer.registerObject(child));
     this.vegetation.group.children.forEach((child) => this.streamer.registerObject(child));
 
-    // 8. Entities (Player, Bike, Car)
-    this.character = new Character(this.terrain, this.roadSystem);
+    // 8. Entities (Player, Bike, Car) with building collision
+    this.character = new Character(this.terrain, this.roadSystem, this.keralaAssets.buildingColliders);
     this.scene.add(this.character.group);
 
-    this.bike = new Bike(this.terrain, this.roadSystem, new THREE.Vector3(6, 0, 12));
+    this.bike = new Bike(this.terrain, this.roadSystem, new THREE.Vector3(6, 0, 12), this.keralaAssets.buildingColliders);
     this.scene.add(this.bike.group);
 
-    this.car = new Car(this.terrain, this.roadSystem, new THREE.Vector3(-8, 0, 14));
+    this.car = new Car(this.terrain, this.roadSystem, new THREE.Vector3(-8, 0, 14), this.keralaAssets.buildingColliders);
     this.scene.add(this.car.group);
 
     // 9. Controllers & UI

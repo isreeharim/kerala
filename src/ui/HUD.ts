@@ -51,8 +51,8 @@ export class HUD {
       name: 'KSRTC Bus Terminal',
       sub: 'New Manjeri Bus Stand',
       icon: '🚌',
-      x: -188,
-      z: 103,
+      x: -175,
+      z: 145,
       desc: 'Manjeri KSRTC Bus Terminal along the Old Bus Stand Road — major intercity transit hub'
     },
     {
@@ -60,8 +60,8 @@ export class HUD {
       name: 'Old Bus Stand & Market',
       sub: 'Old Bus Stand Street, west Manjeri',
       icon: '🛍️',
-      x: -318,
-      z: 66,
+      x: -310,
+      z: 105,
       desc: 'Historic commercial district and old bus terminus with fresh produce markets'
     },
     {
@@ -69,8 +69,8 @@ export class HUD {
       name: 'District & Sessions Court',
       sub: 'Manjeri District Court Complex',
       icon: '⚖️',
-      x: 178,
-      z: -35,
+      x: 205,
+      z: -68,
       desc: 'Judicial complex on Court Road — Manjeri District Court and Government offices'
     },
     {
@@ -78,8 +78,8 @@ export class HUD {
       name: 'Govt. Medical College Hospital',
       sub: 'Melakkam campus – 24h Emergency',
       icon: '🏥',
-      x: -31,
-      z: -196,
+      x: -64,
+      z: -161,
       desc: 'Government Medical College Manjeri — tertiary care hospital serving northern Malappuram district'
     },
     {
@@ -96,8 +96,8 @@ export class HUD {
       name: 'Vettekkode Hill Viewpoint',
       sub: 'Eastern Manjeri scenic hills',
       icon: '⛰️',
-      x: 316,
-      z: -267,
+      x: 325,
+      z: -280,
       desc: 'Panoramic hilltop overlooking the rolling Manjeri town valley'
     }
   ];

@@ -56,6 +56,27 @@ export class PhysicsWorld {
     }
   }
 
+  /**
+   * Create a static box (cuboid) collider at the given world position.
+   * Used for buildings and other static obstacles.
+   * halfExtents: half-sizes in x, y, z
+   */
+  public createBoxCollider(
+    x: number, y: number, z: number,
+    halfW: number, halfH: number, halfD: number
+  ): RAPIER.Collider | null {
+    if (!this.world || !this.isReady) return null;
+    try {
+      const bodyDesc = RAPIER.RigidBodyDesc.fixed().setTranslation(x, y, z);
+      const body = this.world.createRigidBody(bodyDesc);
+      const colliderDesc = RAPIER.ColliderDesc.cuboid(halfW, halfH, halfD);
+      return this.world.createCollider(colliderDesc, body);
+    } catch (e) {
+      console.warn('Failed to create box collider:', e);
+      return null;
+    }
+  }
+
   public castRay(
     origin: THREE.Vector3,
     direction: THREE.Vector3,

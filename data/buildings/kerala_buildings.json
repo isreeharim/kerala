@@ -3,7 +3,9 @@
   "name": "manjeri_buildings_osm_real",
   "crs": {
     "type": "name",
-    "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" }
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
   },
   "features": [
     {
@@ -13,9 +15,16 @@
         "name": "Manjeri District Court Complex",
         "building": "government",
         "category": "CourtComplex",
-        "levels": 3
+        "levels": 3,
+        "rotation": 0.1
       },
-      "geometry": { "type": "Point", "coordinates": [76.1268, 11.1213] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.12782,
+          11.122545
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -24,9 +33,16 @@
         "name": "Govt. Medical College Hospital Manjeri",
         "building": "hospital",
         "category": "Hospital",
-        "levels": 6
+        "levels": 6,
+        "rotation": 1.57
       },
-      "geometry": { "type": "Point", "coordinates": [76.1188, 11.1274] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.117559,
+          11.126026
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -35,9 +51,16 @@
         "name": "Manjeri KSRTC Bus Terminal",
         "building": "transportation",
         "category": "BusTerminal",
-        "levels": 2
+        "levels": 2,
+        "rotation": 0.3
       },
-      "geometry": { "type": "Point", "coordinates": [76.1128, 11.1162] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.113324,
+          11.114573
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -46,9 +69,16 @@
         "name": "Old Bus Stand Manjeri",
         "building": "transportation",
         "category": "OldBusStand",
-        "levels": 1
+        "levels": 1,
+        "rotation": 0
       },
-      "geometry": { "type": "Point", "coordinates": [76.1078, 11.1168] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.108175,
+          11.11607
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -57,9 +87,16 @@
         "name": "Juma Masjid Kacherippadi",
         "building": "mosque",
         "category": "Mosque",
-        "levels": 2
+        "levels": 2,
+        "rotation": -0.5
       },
-      "geometry": { "type": "Point", "coordinates": [76.1200, 11.1203] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.121984,
+          11.120786
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -68,9 +105,16 @@
         "name": "Masjid Melakkam",
         "building": "mosque",
         "category": "Mosque",
-        "levels": 2
+        "levels": 2,
+        "rotation": 0
       },
-      "geometry": { "type": "Point", "coordinates": [76.1118, 11.1248] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.110845,
+          11.125053
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -79,9 +123,16 @@
         "name": "Pandikkad Road Masjid",
         "building": "mosque",
         "category": "Mosque",
-        "levels": 2
+        "levels": 2,
+        "rotation": 0.8
       },
-      "geometry": { "type": "Point", "coordinates": [76.1162, 11.1243] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.117902,
+          11.12393
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -90,9 +141,16 @@
         "name": "Sree Krishna Temple Karnakkaparambu",
         "building": "temple",
         "category": "Temple",
-        "levels": 1
+        "levels": 1,
+        "rotation": 0
       },
-      "geometry": { "type": "Point", "coordinates": [76.1145, 11.1200] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.115041,
+          11.118802
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -101,9 +159,16 @@
         "name": "Vettekkode Devi Temple",
         "building": "temple",
         "category": "Temple",
-        "levels": 1
+        "levels": 1,
+        "rotation": -0.4
       },
-      "geometry": { "type": "Point", "coordinates": [76.1310, 11.1250] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.130109,
+          11.125802
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -112,9 +177,16 @@
         "name": "IGBT College Manjeri",
         "building": "university",
         "category": "CourtComplex",
-        "levels": 4
+        "levels": 4,
+        "rotation": 0
       },
-      "geometry": { "type": "Point", "coordinates": [76.1172, 11.1290] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.116376,
+          11.129545
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -123,9 +195,16 @@
         "name": "Manjeri Municipality Office",
         "building": "government",
         "category": "CourtComplex",
-        "levels": 3
+        "levels": 3,
+        "rotation": 0.2
       },
-      "geometry": { "type": "Point", "coordinates": [76.1225, 11.1210] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.123052,
+          11.121797
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -134,9 +213,16 @@
         "name": "Manjeri Town Hall",
         "building": "government",
         "category": "CourtComplex",
-        "levels": 2
+        "levels": 2,
+        "rotation": 0.2
       },
-      "geometry": { "type": "Point", "coordinates": [76.1238, 11.1208] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.124196,
+          11.121871
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -145,9 +231,16 @@
         "name": "Commercial Complex – Kacherippadi",
         "building": "commercial",
         "category": "Commercial",
-        "levels": 3
+        "levels": 3,
+        "rotation": -0.2
       },
-      "geometry": { "type": "Point", "coordinates": [76.1195, 11.1195] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.118627,
+          11.117904
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -156,9 +249,16 @@
         "name": "Shopping Complex – Kacherippadi South",
         "building": "commercial",
         "category": "Commercial",
-        "levels": 4
+        "levels": 4,
+        "rotation": 0
       },
-      "geometry": { "type": "Point", "coordinates": [76.1205, 11.1188] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.119046,
+          11.117193
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -167,9 +267,16 @@
         "name": "Court Road Commercial Block",
         "building": "commercial",
         "category": "Commercial",
-        "levels": 3
+        "levels": 3,
+        "rotation": 0.2
       },
-      "geometry": { "type": "Point", "coordinates": [76.1248, 11.1211] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.12515,
+          11.119439
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -178,9 +285,16 @@
         "name": "Court Road Plaza",
         "building": "commercial",
         "category": "Commercial",
-        "levels": 2
+        "levels": 2,
+        "rotation": 0.2
       },
-      "geometry": { "type": "Point", "coordinates": [76.1260, 11.1212] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.126408,
+          11.120225
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -189,9 +303,16 @@
         "name": "Hotel – Calicut Road",
         "building": "hotel",
         "category": "Commercial",
-        "levels": 3
+        "levels": 3,
+        "rotation": 0
       },
-      "geometry": { "type": "Point", "coordinates": [76.1118, 11.1204] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.113134,
+          11.119326
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -200,9 +321,16 @@
         "name": "SBI Bank – Kacherippadi",
         "building": "commercial",
         "category": "Commercial",
-        "levels": 2
+        "levels": 2,
+        "rotation": 0
       },
-      "geometry": { "type": "Point", "coordinates": [76.1202, 11.1198] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.121335,
+          11.118203
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -211,9 +339,16 @@
         "name": "Thattukada – Bus Stand Junction",
         "building": "commercial",
         "category": "Thattukada",
-        "levels": 1
+        "levels": 1,
+        "rotation": 0.5
       },
-      "geometry": { "type": "Point", "coordinates": [76.1135, 11.1158] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.114469,
+          11.115508
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -222,9 +357,16 @@
         "name": "Thattukada – Melakkam Junction",
         "building": "commercial",
         "category": "Thattukada",
-        "levels": 1
+        "levels": 1,
+        "rotation": 0
       },
-      "geometry": { "type": "Point", "coordinates": [76.1118, 11.1220] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.111417,
+          11.121497
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -233,9 +375,16 @@
         "name": "Bus Shelter – Nilambur Road",
         "building": "bus_stop",
         "category": "BusShelter",
-        "levels": 1
+        "levels": 1,
+        "rotation": -0.8
       },
-      "geometry": { "type": "Point", "coordinates": [76.1228, 11.1235] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.122365,
+          11.12292
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -244,9 +393,16 @@
         "name": "Bus Shelter – Pandikkad Road",
         "building": "bus_stop",
         "category": "BusShelter",
-        "levels": 1
+        "levels": 1,
+        "rotation": 0.7
       },
-      "geometry": { "type": "Point", "coordinates": [76.1163, 11.1253] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.115613,
+          11.125614
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -255,9 +411,16 @@
         "name": "Bus Shelter – SH 28 (Calicut Road)",
         "building": "bus_stop",
         "category": "BusShelter",
-        "levels": 1
+        "levels": 1,
+        "rotation": 0
       },
-      "geometry": { "type": "Point", "coordinates": [76.1095, 11.1206] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.110845,
+          11.120749
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -266,9 +429,16 @@
         "name": "Manjeri Police Station",
         "building": "government",
         "category": "CourtComplex",
-        "levels": 2
+        "levels": 2,
+        "rotation": 0
       },
-      "geometry": { "type": "Point", "coordinates": [76.1215, 11.1202] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.122403,
+          11.121198
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -277,9 +447,16 @@
         "name": "Sub-District Hospital Manjeri",
         "building": "hospital",
         "category": "Hospital",
-        "levels": 3
+        "levels": 3,
+        "rotation": -1.57
       },
-      "geometry": { "type": "Point", "coordinates": [76.1195, 11.1262] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.120839,
+          11.12524
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -288,9 +465,16 @@
         "name": "Tharavadu – Pandikkad Road",
         "building": "residential",
         "category": "Tharavadu",
-        "levels": 1
+        "levels": 1,
+        "rotation": 0.4
       },
-      "geometry": { "type": "Point", "coordinates": [76.1145, 11.1270] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.113706,
+          11.12786
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -299,9 +483,16 @@
         "name": "Tharavadu – Nilambur Road",
         "building": "residential",
         "category": "Tharavadu",
-        "levels": 1
+        "levels": 1,
+        "rotation": -0.5
       },
-      "geometry": { "type": "Point", "coordinates": [76.1262, 11.1273] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.126676,
+          11.126737
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -310,9 +501,16 @@
         "name": "Tharavadu – Vettekkode",
         "building": "residential",
         "category": "Tharavadu",
-        "levels": 1
+        "levels": 1,
+        "rotation": 0.3
       },
-      "geometry": { "type": "Point", "coordinates": [76.1302, 11.1245] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.129536,
+          11.124117
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -321,9 +519,16 @@
         "name": "Bypass Commercial Complex North",
         "building": "commercial",
         "category": "Commercial",
-        "levels": 3
+        "levels": 3,
+        "rotation": -0.6
       },
-      "geometry": { "type": "Point", "coordinates": [76.1070, 11.1288] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.107793,
+          11.129357
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -332,9 +537,16 @@
         "name": "Bypass Commercial Complex South",
         "building": "commercial",
         "category": "Commercial",
-        "levels": 2
+        "levels": 2,
+        "rotation": 0.6
       },
-      "geometry": { "type": "Point", "coordinates": [76.1245, 11.1148] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.12515,
+          11.114198
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -343,9 +555,16 @@
         "name": "Fire & Rescue Station Manjeri",
         "building": "government",
         "category": "CourtComplex",
-        "levels": 2
+        "levels": 2,
+        "rotation": 0
       },
-      "geometry": { "type": "Point", "coordinates": [76.1208, 11.1205] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.121869,
+          11.119326
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -354,9 +573,16 @@
         "name": "Government Higher Secondary School",
         "building": "school",
         "category": "CourtComplex",
-        "levels": 2
+        "levels": 2,
+        "rotation": 0
       },
-      "geometry": { "type": "Point", "coordinates": [76.1095, 11.1210] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.110082,
+          11.121497
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -365,9 +591,16 @@
         "name": "Town Square Banyan Platform",
         "building": "platform",
         "category": "BanyanPlatform",
-        "levels": 1
+        "levels": 1,
+        "rotation": 0
       },
-      "geometry": { "type": "Point", "coordinates": [76.1200, 11.1193] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.120458,
+          11.120973
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -376,9 +609,16 @@
         "name": "Vettekkode Viewpoint",
         "building": "viewpoint",
         "category": "Viewpoint",
-        "levels": 1
+        "levels": 1,
+        "rotation": -0.5
       },
-      "geometry": { "type": "Point", "coordinates": [76.1320, 11.1300] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.132397,
+          11.13048
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -387,9 +627,16 @@
         "name": "Commercial Block – Mannarkad Road",
         "building": "commercial",
         "category": "Commercial",
-        "levels": 2
+        "levels": 2,
+        "rotation": 0.3
       },
-      "geometry": { "type": "Point", "coordinates": [76.1220, 11.1115] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.122861,
+          11.111017
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -398,9 +645,16 @@
         "name": "Masjid – Bypass Junction",
         "building": "mosque",
         "category": "Mosque",
-        "levels": 2
+        "levels": 2,
+        "rotation": 0
       },
-      "geometry": { "type": "Point", "coordinates": [76.1200, 11.1175] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.118932,
+          11.116818
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -409,9 +663,16 @@
         "name": "Tharavadu – Cherupuzha Banks",
         "building": "residential",
         "category": "Tharavadu",
-        "levels": 1
+        "levels": 1,
+        "rotation": 0
       },
-      "geometry": { "type": "Point", "coordinates": [76.1195, 11.1090] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.118665,
+          11.108584
+        ]
+      }
     },
     {
       "type": "Feature",
@@ -420,9 +681,16 @@
         "name": "Commercial Block – Perinthalmanna Rd",
         "building": "commercial",
         "category": "Commercial",
-        "levels": 2
+        "levels": 2,
+        "rotation": -0.4
       },
-      "geometry": { "type": "Point", "coordinates": [76.1250, 11.1173] }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.125531,
+          11.116631
+        ]
+      }
     }
   ]
 }

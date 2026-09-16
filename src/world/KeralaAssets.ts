@@ -1,13 +1,19 @@
 import * as THREE from 'three';
 import { Terrain } from './Terrain';
 import { MapDataLoader } from './MapDataLoader';
+import { PhysicsWorld } from '../core/PhysicsWorld';
+import { BuildingCollider } from './ObstacleCollider';
 
 export class KeralaAssets {
   public group: THREE.Group = new THREE.Group();
+  /** Oriented bounding box colliders for all buildings — used for character & vehicle push-back collision */
+  public buildingColliders: BuildingCollider[] = [];
   private terrain: Terrain;
+  private physics: PhysicsWorld;
 
-  constructor(terrain: Terrain) {
+  constructor(terrain: Terrain, physics: PhysicsWorld) {
     this.terrain = terrain;
+    this.physics = physics;
 
     this.createBridge();
     this.createOSMBuildings();
@@ -22,55 +28,88 @@ export class KeralaAssets {
     for (const bldg of osmBuildings) {
       const { x, z } = bldg.position;
       const category = bldg.properties.category;
+      const rot = bldg.properties.rotation || 0;
 
       switch (category) {
         case 'CourtComplex':
-          this.createCourtComplex(x, z);
+          this.createCourtComplex(x, z, rot);
           break;
         case 'Hospital':
-          this.createMedicalCollege(x, z);
+          this.createMedicalCollege(x, z, rot);
           break;
         case 'BusTerminal':
-          this.createBusTerminal(x, z);
+          this.createBusTerminal(x, z, rot);
           break;
         case 'OldBusStand':
-          this.createOldBusStand(x, z);
+          this.createOldBusStand(x, z, rot);
           break;
         case 'Mosque':
-          this.createJumaMasjid(x, z);
+          this.createJumaMasjid(x, z, rot);
           break;
         case 'Temple':
-          this.createTemple(x, z);
+          this.createTemple(x, z, rot);
           break;
         case 'Commercial':
-          this.createCommercialBlock(x, z);
+          this.createCommercialBlock(x, z, rot);
           break;
         case 'Thattukada':
-          this.createThattukada(x, z);
+          this.createThattukada(x, z, rot);
           break;
         case 'BusShelter':
-          this.createBusStop(x, z);
+          this.createBusStop(x, z, rot);
           break;
         case 'Tharavadu':
-          this.createTharavaduHouse(x, z, Math.random() * 0.5 - 0.25);
+          this.createTharavaduHouse(x, z, rot);
           break;
         case 'BanyanPlatform':
-          this.createBanyanPlatform(x, z);
+          this.createBanyanPlatform(x, z, rot);
           break;
         case 'Houseboat':
-          this.createHouseboat(x, z);
+          this.createHouseboat(x, z, rot);
           break;
         case 'Viewpoint':
-          this.createViewpointShelter(x, z);
+          this.createViewpointShelter(x, z, rot);
           break;
       }
     }
   }
 
-  // 1. Cherupuzha River Bridge (Anakkayam Road)
+  /**
+   * Register a solid oriented box collider for a building.
+   * Stores in buildingColliders for mathematical push-back collision
+   * and creates Rapier static cuboid collider for physics.
+   */
+  private registerBuildingCollider(
+    worldX: number, groundY: number, worldZ: number,
+    wx: number, wy: number, wz: number,
+    rotationY: number = 0, name?: string
+  ): void {
+    const halfW = wx / 2;
+    const halfH = wy / 2;
+    const halfD = wz / 2;
+    const centerY = groundY + halfH;
+
+    // Mathematical oriented bounding box for Character, Bike, Car collision
+    this.buildingColliders.push({
+      x: worldX,
+      z: worldZ,
+      halfW,
+      halfD,
+      rotationY,
+      name
+    });
+
+    // Rapier static physics collider (registered when physics is ready)
+    this.physics.onReady(() => {
+      this.physics.createBoxCollider(worldX, centerY, worldZ, halfW, halfH, halfD);
+    });
+  }
+
+  // 1. Cherupuzha River Bridge (Anakkayam Road / SH 71 crossing at z ≈ 347)
   private createBridge(): void {
     const bridgeGroup = new THREE.Group();
-    const bridgeZ = 310;
+    const bridgeX = -21;
+    const bridgeZ = 347;
     const bridgeLength = 80;
     const bridgeWidth = 8.5;
     const bridgeHeight = 3.2;
@@ -81,7 +120,7 @@ export class KeralaAssets {
       for (let px of [-bridgeWidth / 2, bridgeWidth / 2]) {
         const pillarGeo = new THREE.CylinderGeometry(0.7, 0.8, 6, 8);
         const pillar = new THREE.Mesh(pillarGeo, pillarMat);
-        pillar.position.set(px, 1.0, pz);
+        pillar.position.set(bridgeX + px, 1.0, pz);
         pillar.castShadow = true;
         bridgeGroup.add(pillar);
       }
@@ -94,13 +133,13 @@ export class KeralaAssets {
 
     for (let side of [-bridgeWidth / 2 + 0.2, bridgeWidth / 2 - 0.2]) {
       const bar = new THREE.Mesh(barGeo, railMat);
-      bar.position.set(side, bridgeHeight + 0.85, bridgeZ);
+      bar.position.set(bridgeX + side, bridgeHeight + 0.85, bridgeZ);
       bar.castShadow = true;
       bridgeGroup.add(bar);
 
       for (let z = bridgeZ - bridgeLength / 2; z <= bridgeZ + bridgeLength / 2; z += 4) {
         const post = new THREE.Mesh(postGeo, railMat);
-        post.position.set(side, bridgeHeight + 0.45, z);
+        post.position.set(bridgeX + side, bridgeHeight + 0.45, z);
         post.castShadow = true;
         bridgeGroup.add(post);
       }
@@ -113,11 +152,11 @@ export class KeralaAssets {
     for (let pz of [bridgeZ - 25, bridgeZ, bridgeZ + 25]) {
       const poleGeo = new THREE.CylinderGeometry(0.08, 0.1, 4, 8);
       const pole = new THREE.Mesh(poleGeo, poleMat);
-      pole.position.set(bridgeWidth / 2 - 0.2, bridgeHeight + 2, pz);
+      pole.position.set(bridgeX + bridgeWidth / 2 - 0.2, bridgeHeight + 2, pz);
 
       const lampGeo = new THREE.SphereGeometry(0.35, 8, 8);
       const lamp = new THREE.Mesh(lampGeo, lampMat);
-      lamp.position.set(bridgeWidth / 2 - 0.5, bridgeHeight + 3.8, pz);
+      lamp.position.set(bridgeX + bridgeWidth / 2 - 0.5, bridgeHeight + 3.8, pz);
 
       bridgeGroup.add(pole);
       bridgeGroup.add(lamp);
@@ -127,7 +166,7 @@ export class KeralaAssets {
   }
 
   // 2. Kerala Houseboat (Kettuvallam)
-  private createHouseboat(x: number, z: number): void {
+  private createHouseboat(x: number, z: number, rotationY: number = 0.35): void {
     const boat = new THREE.Group();
     const boatY = this.terrain.waterLevel;
 
@@ -156,12 +195,14 @@ export class KeralaAssets {
     boat.add(deck);
 
     boat.position.set(x, boatY, z);
-    boat.rotation.y = 0.35;
+    boat.rotation.y = rotationY || 0.35;
     this.group.add(boat);
+
+    this.registerBuildingCollider(x, boatY, z, 4.5, 3.5, 18, boat.rotation.y, 'Houseboat');
   }
 
   // 3. Thattukada (Kerala Tea Stall)
-  private createThattukada(x: number, z: number): void {
+  private createThattukada(x: number, z: number, rotationY: number = 0): void {
     const thattukada = new THREE.Group();
     const y = this.terrain.getHeight(x, z);
 
@@ -231,11 +272,14 @@ export class KeralaAssets {
     thattukada.add(bench);
 
     thattukada.position.set(x, y, z);
+    thattukada.rotation.y = rotationY;
     this.group.add(thattukada);
+
+    this.registerBuildingCollider(x, y, z, 4.8, 3.0, 3.6, rotationY, 'Thattukada');
   }
 
   // 4. KSRTC Bus Stop
-  private createBusStop(x: number, z: number): void {
+  private createBusStop(x: number, z: number, rotationY: number = 0): void {
     const busStop = new THREE.Group();
     const y = this.terrain.getHeight(x, z);
 
@@ -265,12 +309,14 @@ export class KeralaAssets {
     busStop.add(sign);
 
     busStop.position.set(x, y, z);
-    busStop.rotation.y = Math.PI * 0.9;
+    busStop.rotation.y = rotationY || Math.PI * 0.9;
     this.group.add(busStop);
+
+    this.registerBuildingCollider(x, y, z, 5.4, 3.0, 2.6, busStop.rotation.y, 'Bus Shelter');
   }
 
   // 5. Traditional Kerala Tharavadu House
-  private createTharavaduHouse(x: number, z: number, rotationY: number): void {
+  private createTharavaduHouse(x: number, z: number, rotationY: number = 0): void {
     const house = new THREE.Group();
     const y = this.terrain.getHeight(x, z);
 
@@ -313,10 +359,12 @@ export class KeralaAssets {
     house.position.set(x, y, z);
     house.rotation.y = rotationY;
     this.group.add(house);
+
+    this.registerBuildingCollider(x, y, z, 10, 6.0, 8, rotationY, 'Tharavadu House');
   }
 
   // 6. Sacred Banyan Tree Platform (Aalthara)
-  private createBanyanPlatform(x: number, z: number): void {
+  private createBanyanPlatform(x: number, z: number, rotationY: number = 0): void {
     const group = new THREE.Group();
     const y = this.terrain.getHeight(x, z);
 
@@ -348,11 +396,14 @@ export class KeralaAssets {
     }
 
     group.position.set(x, y, z);
+    group.rotation.y = rotationY;
     this.group.add(group);
+
+    this.registerBuildingCollider(x, y, z, 10, 6.0, 10, rotationY, 'Banyan Platform');
   }
 
   // 7. Mountain Viewpoint Shelter
-  private createViewpointShelter(x: number, z: number): void {
+  private createViewpointShelter(x: number, z: number, rotationY: number = 0): void {
     const shelter = new THREE.Group();
     const y = this.terrain.getHeight(x, z);
 
@@ -380,7 +431,10 @@ export class KeralaAssets {
     shelter.add(roof);
 
     shelter.position.set(x, y, z);
+    shelter.rotation.y = rotationY;
     this.group.add(shelter);
+
+    this.registerBuildingCollider(x, y, z, 7, 5.0, 7, rotationY, 'Viewpoint Shelter');
   }
 
   // 8. Utility Poles along Roadside
@@ -419,7 +473,7 @@ export class KeralaAssets {
   }
 
   // 9. District & Sessions Court Complex
-  private createCourtComplex(x: number, z: number): void {
+  private createCourtComplex(x: number, z: number, rotationY: number = 0): void {
     const y = this.terrain.getHeight(x, z);
     const group = new THREE.Group();
 
@@ -475,11 +529,14 @@ export class KeralaAssets {
     group.add(pole);
 
     group.position.set(x, y, z);
+    group.rotation.y = rotationY;
     this.group.add(group);
+
+    this.registerBuildingCollider(x, y, z, 30, 9.0, 18, rotationY, 'Court Complex');
   }
 
   // 10. Govt. Medical College Hospital (Melakkam)
-  private createMedicalCollege(x: number, z: number): void {
+  private createMedicalCollege(x: number, z: number, rotationY: number = 0): void {
     const y = this.terrain.getHeight(x, z);
     const group = new THREE.Group();
 
@@ -523,11 +580,14 @@ export class KeralaAssets {
     group.add(crossH);
 
     group.position.set(x, y, z);
+    group.rotation.y = rotationY;
     this.group.add(group);
+
+    this.registerBuildingCollider(x, y, z, 38, 11.0, 24, rotationY, 'Medical College');
   }
 
   // 11. Indira Gandhi Bus Terminal (New Bus Stand)
-  private createBusTerminal(x: number, z: number): void {
+  private createBusTerminal(x: number, z: number, rotationY: number = 0): void {
     const y = this.terrain.getHeight(x, z);
     const group = new THREE.Group();
 
@@ -575,11 +635,14 @@ export class KeralaAssets {
     group.add(createKSRTCBus(6));
 
     group.position.set(x, y, z);
+    group.rotation.y = rotationY;
     this.group.add(group);
+
+    this.registerBuildingCollider(x, y, z, 42, 6.0, 26, rotationY, 'Bus Terminal');
   }
 
   // 12. Old Bus Stand & Municipal Market
-  private createOldBusStand(x: number, z: number): void {
+  private createOldBusStand(x: number, z: number, rotationY: number = 0): void {
     const y = this.terrain.getHeight(x, z);
     const group = new THREE.Group();
 
@@ -604,11 +667,14 @@ export class KeralaAssets {
     group.add(canopy);
 
     group.position.set(x, y, z);
+    group.rotation.y = rotationY;
     this.group.add(group);
+
+    this.registerBuildingCollider(x, y, z, 24, 7.0, 14, rotationY, 'Old Bus Stand');
   }
 
   // 13. Historic Manjeri Town Juma Masjid
-  private createJumaMasjid(x: number, z: number): void {
+  private createJumaMasjid(x: number, z: number, rotationY: number = 0): void {
     const y = this.terrain.getHeight(x, z);
     const group = new THREE.Group();
 
@@ -644,11 +710,14 @@ export class KeralaAssets {
     }
 
     group.position.set(x, y, z);
+    group.rotation.y = rotationY;
     this.group.add(group);
+
+    this.registerBuildingCollider(x, y, z, 18, 8.0, 15, rotationY, 'Juma Masjid');
   }
 
   // 14. Karnakkaparambu Temple
-  private createTemple(x: number, z: number): void {
+  private createTemple(x: number, z: number, rotationY: number = 0): void {
     const y = this.terrain.getHeight(x, z);
     const group = new THREE.Group();
 
@@ -682,11 +751,14 @@ export class KeralaAssets {
     group.add(lamp);
 
     group.position.set(x, y, z);
+    group.rotation.y = rotationY;
     this.group.add(group);
+
+    this.registerBuildingCollider(x, y, z, 20, 5.0, 20, rotationY, 'Temple');
   }
 
   // 15. Commercial High-Street Block
-  private createCommercialBlock(x: number, z: number): void {
+  private createCommercialBlock(x: number, z: number, rotationY: number = 0): void {
     const y = this.terrain.getHeight(x, z);
     const group = new THREE.Group();
 
@@ -711,7 +783,10 @@ export class KeralaAssets {
     group.add(sign);
 
     group.position.set(x, y, z);
+    group.rotation.y = rotationY;
     this.group.add(group);
+
+    this.registerBuildingCollider(x, y, z, 16, 8.0, 12, rotationY, 'Commercial Block');
   }
 
   // 16. Milestone & Signboards

@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { Terrain } from '../world/Terrain';
 import { RoadSystem } from '../world/RoadSystem';
+import { BuildingCollider, resolveBuildingCollision } from '../world/ObstacleCollider';
 
 export class Character {
   public group: THREE.Group = new THREE.Group();
@@ -27,10 +28,12 @@ export class Character {
   private animTimer: number = 0;
   private terrain: Terrain;
   private roadSystem: RoadSystem;
+  public buildingColliders: BuildingCollider[] = [];
 
-  constructor(terrain: Terrain, roadSystem: RoadSystem) {
+  constructor(terrain: Terrain, roadSystem: RoadSystem, buildingColliders: BuildingCollider[] = []) {
     this.terrain = terrain;
     this.roadSystem = roadSystem;
+    this.buildingColliders = buildingColliders;
 
     // Materials
     const skinMat = new THREE.MeshStandardMaterial({ color: 0xc68642, roughness: 0.8 }); // Indian skin tone
@@ -158,6 +161,11 @@ export class Character {
       const forwardVec = new THREE.Vector3(0, 0, -1).applyEuler(new THREE.Euler(0, this.rotation.y, 0));
       this.velocity.copy(forwardVec).multiplyScalar(currentSpeed);
       this.position.addScaledVector(this.velocity, delta);
+
+      // Prevent character from going through buildings
+      if (this.buildingColliders.length > 0) {
+        resolveBuildingCollision(this.position, 0.6, this.buildingColliders);
+      }
 
       // Walk cycle animation
       this.animTimer += delta * (input.sprint ? 14 : 9);

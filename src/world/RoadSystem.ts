@@ -207,18 +207,18 @@ export class RoadSystem {
   }
 
   public getRoadElevation(x: number, z: number): number | null {
-    // Check if on the backwater canal bridge (Z: 228 to 332, |X| < 6)
-    if (z >= 228 && z <= 332 && Math.abs(x) < 6.0) {
-      if (z > 305) {
+    // Check if on the Cherupuzha River Bridge (SH 71, Z: 310 to 385, X around -21)
+    if (z >= 310 && z <= 385 && Math.abs(x - (-21)) < 6.0) {
+      if (z > 365) {
         // Ramp up from South
-        const progress = (332 - z) / 27;
+        const progress = (385 - z) / 20;
         return 2.2 + progress * 1.3;
-      } else if (z < 255) {
+      } else if (z < 330) {
         // Ramp down to North
-        const progress = (z - 228) / 27;
+        const progress = (z - 310) / 20;
         return 2.2 + progress * 1.3;
       } else {
-        return 3.5; // Central flat bridge deck
+        return 3.5; // Central bridge deck
       }
     }
 
