@@ -1,0 +1,112 @@
+{
+  "type": "FeatureCollection",
+  "name": "kerala_buildings",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bldg-thattukada",
+        "name": "Village Thattukada Tea Stall",
+        "building": "kiosk",
+        "category": "Thattukada"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [76.2687, 10.0880]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bldg-bus-shelter",
+        "name": "KSRTC Bus Waiting Shelter",
+        "building": "transportation",
+        "category": "BusShelter"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [76.2730, 10.0900]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bldg-tharavadu-1",
+        "name": "Heritage Tharavadu House (North)",
+        "building": "residential",
+        "category": "Tharavadu",
+        "levels": 2
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [76.2745, 10.0860]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bldg-tharavadu-2",
+        "name": "Heritage Tharavadu House (South)",
+        "building": "residential",
+        "category": "Tharavadu",
+        "levels": 2
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [76.2655, 10.0920]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bldg-banyan",
+        "name": "Sacred Banyan Tree Aalthara",
+        "building": "shrine",
+        "category": "BanyanPlatform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [76.2705, 10.0850]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bldg-houseboat-1",
+        "name": "Kettuvallam Houseboat Mooring",
+        "building": "boat",
+        "category": "Houseboat"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [76.2740, 10.0710]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bldg-houseboat-2",
+        "name": "Kettuvallam Houseboat West",
+        "building": "boat",
+        "category": "Houseboat"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [76.2665, 10.0720]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bldg-munnar-viewpoint",
+        "name": "Top Station Viewpoint Shelter",
+        "building": "viewpoint",
+        "category": "Viewpoint"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [76.2650, 10.1285]
+      }
+    }
+  ]
+}

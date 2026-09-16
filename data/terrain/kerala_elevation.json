@@ -1,0 +1,20 @@
+{
+  "region": "Kerala",
+  "datum": "WGS84",
+  "unit": "meters",
+  "elevationProfile": {
+    "alappuzhaCoast": {
+      "latRange": [10.0400, 10.0750],
+      "elevationMeters": [0.5, 3.5],
+      "waterLevelMeters": 1.2
+    },
+    "heritageVillage": {
+      "latRange": [10.0750, 10.0950],
+      "elevationMeters": [4.0, 16.0]
+    },
+    "munnarWesternGhats": {
+      "latRange": [10.0950, 10.1350],
+      "elevationMeters": [18.0, 85.0]
+    }
+  }
+}

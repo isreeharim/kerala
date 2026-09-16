@@ -1,0 +1,21 @@
+{
+  "name": "kerala-openworld-3d",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "three": "^0.174.0",
+    "@types/three": "^0.174.0",
+    "@dimforge/rapier3d-compat": "^0.14.0",
+    "simplex-noise": "^4.0.3"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3",
+    "vite": "^6.2.0"
+  }
+}

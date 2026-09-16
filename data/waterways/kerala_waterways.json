@@ -1,0 +1,42 @@
+{
+  "type": "FeatureCollection",
+  "name": "kerala_waterways",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "canal-vembanad",
+        "name": "Alappuzha Backwaters & Canal",
+        "waterway": "canal",
+        "width": 42
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [76.2400, 10.0705],
+          [76.2550, 10.0715],
+          [76.2711, 10.0705],
+          [76.2880, 10.0690],
+          [76.3100, 10.0710]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "river-periyar-branch",
+        "name": "Village Stream Branch",
+        "waterway": "stream",
+        "width": 14
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [76.2500, 10.0820],
+          [76.2620, 10.0810],
+          [76.2711, 10.0705]
+        ]
+      }
+    }
+  ]
+}
