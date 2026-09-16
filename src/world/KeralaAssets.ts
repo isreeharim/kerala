@@ -24,6 +24,27 @@ export class KeralaAssets {
       const category = bldg.properties.category;
 
       switch (category) {
+        case 'CourtComplex':
+          this.createCourtComplex(x, z);
+          break;
+        case 'Hospital':
+          this.createMedicalCollege(x, z);
+          break;
+        case 'BusTerminal':
+          this.createBusTerminal(x, z);
+          break;
+        case 'OldBusStand':
+          this.createOldBusStand(x, z);
+          break;
+        case 'Mosque':
+          this.createJumaMasjid(x, z);
+          break;
+        case 'Temple':
+          this.createTemple(x, z);
+          break;
+        case 'Commercial':
+          this.createCommercialBlock(x, z);
+          break;
         case 'Thattukada':
           this.createThattukada(x, z);
           break;
@@ -46,13 +67,13 @@ export class KeralaAssets {
     }
   }
 
-  // 1. Backwater Bridge across the canal
+  // 1. Cherupuzha River Bridge (Anakkayam Road)
   private createBridge(): void {
     const bridgeGroup = new THREE.Group();
-    const bridgeZ = 280;
-    const bridgeLength = 96;
+    const bridgeZ = 310;
+    const bridgeLength = 80;
     const bridgeWidth = 8.5;
-    const bridgeHeight = 3.5;
+    const bridgeHeight = 3.2;
 
     // Bridge piers into water
     const pillarMat = new THREE.MeshStandardMaterial({ color: 0x5a554a, roughness: 0.9 });
@@ -397,13 +418,313 @@ export class KeralaAssets {
     }
   }
 
-  // 9. Milestone & Signboards
+  // 9. District & Sessions Court Complex
+  private createCourtComplex(x: number, z: number): void {
+    const y = this.terrain.getHeight(x, z);
+    const group = new THREE.Group();
+
+    const wallMat = new THREE.MeshStandardMaterial({ color: 0xf1f5f9, roughness: 0.8 });
+    const plinthMat = new THREE.MeshStandardMaterial({ color: 0x64748b, roughness: 0.9 });
+    const roofMat = new THREE.MeshStandardMaterial({ color: 0x9a3412, roughness: 0.75 });
+    const pillarMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.5 });
+    const boardMat = new THREE.MeshStandardMaterial({ color: 0x1e3a8a });
+
+    // Base plinth
+    const plinth = new THREE.Mesh(new THREE.BoxGeometry(34, 1.2, 22), plinthMat);
+    plinth.position.y = 0.6;
+    group.add(plinth);
+
+    // Main 2-story building block
+    const mainBlock = new THREE.Mesh(new THREE.BoxGeometry(30, 7.5, 18), wallMat);
+    mainBlock.position.y = 1.2 + 3.75;
+    mainBlock.castShadow = true;
+    mainBlock.receiveShadow = true;
+    group.add(mainBlock);
+
+    // Classical Front Portico with pillars
+    for (let px of [-6, -2.4, 2.4, 6]) {
+      const col = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.4, 6.5, 12), pillarMat);
+      col.position.set(px, 1.2 + 3.25, 10.5);
+      col.castShadow = true;
+      group.add(col);
+    }
+
+    // Pediment triangular roof over portico
+    const pediment = new THREE.Mesh(new THREE.ConeGeometry(8, 2.5, 4), roofMat);
+    pediment.position.set(0, 1.2 + 7.5 + 1.25, 10.5);
+    pediment.rotation.y = Math.PI / 4;
+    pediment.castShadow = true;
+    group.add(pediment);
+
+    // Main hipped tiled roof
+    const roof = new THREE.Mesh(new THREE.ConeGeometry(24, 4.2, 4), roofMat);
+    roof.position.set(0, 1.2 + 7.5 + 2.1, 0);
+    roof.rotation.y = Math.PI / 4;
+    roof.scale.set(1.4, 1, 0.9);
+    roof.castShadow = true;
+    group.add(roof);
+
+    // Court name board
+    const board = new THREE.Mesh(new THREE.BoxGeometry(10, 1.0, 0.2), boardMat);
+    board.position.set(0, 1.2 + 6.8, 10.6);
+    group.add(board);
+
+    // Flagpole
+    const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.08, 9, 8), pillarMat);
+    pole.position.set(0, 4.5, 13);
+    group.add(pole);
+
+    group.position.set(x, y, z);
+    this.group.add(group);
+  }
+
+  // 10. Govt. Medical College Hospital (Melakkam)
+  private createMedicalCollege(x: number, z: number): void {
+    const y = this.terrain.getHeight(x, z);
+    const group = new THREE.Group();
+
+    const wallMat = new THREE.MeshStandardMaterial({ color: 0xf8fafc, roughness: 0.7 });
+    const glassMat = new THREE.MeshStandardMaterial({ color: 0x38bdf8, roughness: 0.2, metalness: 0.3 });
+    const redMat = new THREE.MeshStandardMaterial({ color: 0xef4444, roughness: 0.5 });
+    const emergencyMat = new THREE.MeshStandardMaterial({ color: 0xdc2626 });
+
+    // 3-story Hospital Main Block
+    const mainHospital = new THREE.Mesh(new THREE.BoxGeometry(38, 11, 24), wallMat);
+    mainHospital.position.y = 5.5;
+    mainHospital.castShadow = true;
+    mainHospital.receiveShadow = true;
+    group.add(mainHospital);
+
+    // Hospital Window Bands
+    for (let floor = 1; floor <= 3; floor++) {
+      const band = new THREE.Mesh(new THREE.BoxGeometry(34, 1.2, 24.3), glassMat);
+      band.position.y = floor * 3.2 - 0.4;
+      group.add(band);
+    }
+
+    // Emergency Casualty Canopy
+    const erCanopy = new THREE.Mesh(new THREE.BoxGeometry(14, 0.6, 8), emergencyMat);
+    erCanopy.position.set(0, 4.0, 15);
+    erCanopy.castShadow = true;
+    group.add(erCanopy);
+
+    for (let cx of [-6, 6]) {
+      const pillar = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.3, 4, 8), wallMat);
+      pillar.position.set(cx, 2, 18);
+      group.add(pillar);
+    }
+
+    // Red Cross emblem
+    const crossV = new THREE.Mesh(new THREE.BoxGeometry(1.0, 3.2, 0.2), redMat);
+    crossV.position.set(0, 9.2, 12.15);
+    group.add(crossV);
+    const crossH = new THREE.Mesh(new THREE.BoxGeometry(3.2, 1.0, 0.2), redMat);
+    crossH.position.set(0, 9.2, 12.15);
+    group.add(crossH);
+
+    group.position.set(x, y, z);
+    this.group.add(group);
+  }
+
+  // 11. Indira Gandhi Bus Terminal (New Bus Stand)
+  private createBusTerminal(x: number, z: number): void {
+    const y = this.terrain.getHeight(x, z);
+    const group = new THREE.Group();
+
+    const tarmacMat = new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.9 });
+    const steelMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8, metalness: 0.8 });
+    const canopyMat = new THREE.MeshStandardMaterial({ color: 0x0284c7, roughness: 0.6 });
+    const busYellowMat = new THREE.MeshStandardMaterial({ color: 0xeab308, roughness: 0.6 });
+    const busGreenMat = new THREE.MeshStandardMaterial({ color: 0x15803d, roughness: 0.7 });
+
+    // Terminal concrete platform
+    const platform = new THREE.Mesh(new THREE.BoxGeometry(42, 0.6, 26), tarmacMat);
+    platform.position.y = 0.3;
+    group.add(platform);
+
+    // Terminal passenger concourse canopy
+    const canopy = new THREE.Mesh(new THREE.BoxGeometry(36, 0.4, 18), canopyMat);
+    canopy.position.set(0, 5.5, 0);
+    canopy.castShadow = true;
+    group.add(canopy);
+
+    for (let px of [-16, 0, 16]) {
+      for (let pz of [-7, 7]) {
+        const col = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.25, 5.5, 8), steelMat);
+        col.position.set(px, 2.75, pz);
+        col.castShadow = true;
+        group.add(col);
+      }
+    }
+
+    // Parked KSRTC Buses
+    const createKSRTCBus = (offsetX: number) => {
+      const bus = new THREE.Group();
+      const body = new THREE.Mesh(new THREE.BoxGeometry(3.0, 3.2, 10.5), busYellowMat);
+      body.position.y = 1.9;
+      body.castShadow = true;
+      bus.add(body);
+      const stripe = new THREE.Mesh(new THREE.BoxGeometry(3.05, 0.7, 10.55), busGreenMat);
+      stripe.position.y = 1.5;
+      bus.add(stripe);
+      bus.position.set(offsetX, 0.6, 4);
+      return bus;
+    };
+
+    group.add(createKSRTCBus(-10));
+    group.add(createKSRTCBus(6));
+
+    group.position.set(x, y, z);
+    this.group.add(group);
+  }
+
+  // 12. Old Bus Stand & Municipal Market
+  private createOldBusStand(x: number, z: number): void {
+    const y = this.terrain.getHeight(x, z);
+    const group = new THREE.Group();
+
+    const shopWallMat = new THREE.MeshStandardMaterial({ color: 0xfef3c7, roughness: 0.8 });
+    const shutterMat = new THREE.MeshStandardMaterial({ color: 0x475569, roughness: 0.6 });
+    const roofMat = new THREE.MeshStandardMaterial({ color: 0xb45309, roughness: 0.8 });
+
+    const baseBlock = new THREE.Mesh(new THREE.BoxGeometry(24, 7, 14), shopWallMat);
+    baseBlock.position.y = 3.5;
+    baseBlock.castShadow = true;
+    group.add(baseBlock);
+
+    for (let sx of [-8, -4, 0, 4, 8]) {
+      const shutter = new THREE.Mesh(new THREE.BoxGeometry(3.2, 2.5, 0.2), shutterMat);
+      shutter.position.set(sx, 1.25, 7.1);
+      group.add(shutter);
+    }
+
+    const canopy = new THREE.Mesh(new THREE.BoxGeometry(25, 0.3, 3), roofMat);
+    canopy.position.set(0, 3.2, 8);
+    canopy.rotation.x = 0.2;
+    group.add(canopy);
+
+    group.position.set(x, y, z);
+    this.group.add(group);
+  }
+
+  // 13. Historic Manjeri Town Juma Masjid
+  private createJumaMasjid(x: number, z: number): void {
+    const y = this.terrain.getHeight(x, z);
+    const group = new THREE.Group();
+
+    const whiteMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.4 });
+    const domeMat = new THREE.MeshStandardMaterial({ color: 0x15803d, roughness: 0.3, metalness: 0.2 });
+    const goldMat = new THREE.MeshStandardMaterial({ color: 0xfbbf24, metalness: 0.8, roughness: 0.2 });
+
+    const hall = new THREE.Mesh(new THREE.BoxGeometry(18, 7.5, 15), whiteMat);
+    hall.position.y = 3.75;
+    hall.castShadow = true;
+    group.add(hall);
+
+    // Central Emerald Dome
+    const dome = new THREE.Mesh(new THREE.SphereGeometry(4.2, 16, 12, 0, Math.PI * 2, 0, Math.PI * 0.5), domeMat);
+    dome.position.y = 7.5;
+    dome.castShadow = true;
+    group.add(dome);
+
+    const finial = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.15, 1.8, 8), goldMat);
+    finial.position.y = 12.2;
+    group.add(finial);
+
+    // 2 Minarets
+    for (let mx of [-8.5, 8.5]) {
+      const minaret = new THREE.Mesh(new THREE.CylinderGeometry(0.7, 0.9, 15, 12), whiteMat);
+      minaret.position.set(mx, 7.5, 7.5);
+      minaret.castShadow = true;
+      group.add(minaret);
+
+      const mDome = new THREE.Mesh(new THREE.SphereGeometry(0.9, 10, 8, 0, Math.PI * 2, 0, Math.PI * 0.5), domeMat);
+      mDome.position.set(mx, 15, 7.5);
+      group.add(mDome);
+    }
+
+    group.position.set(x, y, z);
+    this.group.add(group);
+  }
+
+  // 14. Karnakkaparambu Temple
+  private createTemple(x: number, z: number): void {
+    const y = this.terrain.getHeight(x, z);
+    const group = new THREE.Group();
+
+    const graniteMat = new THREE.MeshStandardMaterial({ color: 0x374151, roughness: 0.9 });
+    const wallMat = new THREE.MeshStandardMaterial({ color: 0xfef08a, roughness: 0.8 });
+    const roofMat = new THREE.MeshStandardMaterial({ color: 0x991b1b, roughness: 0.75 });
+    const brassMat = new THREE.MeshStandardMaterial({ color: 0xd97706, metalness: 0.7, roughness: 0.3 });
+
+    const wall = new THREE.Mesh(new THREE.BoxGeometry(20, 2.2, 20), graniteMat);
+    wall.position.y = 1.1;
+    group.add(wall);
+
+    const sreekovil = new THREE.Mesh(new THREE.BoxGeometry(8, 4.5, 8), wallMat);
+    sreekovil.position.y = 2.25;
+    sreekovil.castShadow = true;
+    group.add(sreekovil);
+
+    const roof = new THREE.Mesh(new THREE.ConeGeometry(7.5, 4.5, 4), roofMat);
+    roof.position.y = 4.5 + 2.25;
+    roof.rotation.y = Math.PI / 4;
+    roof.castShadow = true;
+    group.add(roof);
+
+    const stupa = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.4, 1.4, 8), brassMat);
+    stupa.position.y = 9.2;
+    group.add(stupa);
+
+    const lamp = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.25, 4.5, 8), brassMat);
+    lamp.position.set(0, 2.25, 12);
+    lamp.castShadow = true;
+    group.add(lamp);
+
+    group.position.set(x, y, z);
+    this.group.add(group);
+  }
+
+  // 15. Commercial High-Street Block
+  private createCommercialBlock(x: number, z: number): void {
+    const y = this.terrain.getHeight(x, z);
+    const group = new THREE.Group();
+
+    const colors = [0xe2e8f0, 0xfef3c7, 0xdcfce7, 0xfce7f3];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    const wallMat = new THREE.MeshStandardMaterial({ color: randomColor, roughness: 0.7 });
+    const glassMat = new THREE.MeshStandardMaterial({ color: 0x38bdf8, roughness: 0.2 });
+    const signMat = new THREE.MeshStandardMaterial({ color: 0x2563eb, roughness: 0.5 });
+
+    const building = new THREE.Mesh(new THREE.BoxGeometry(16, 7.5, 12), wallMat);
+    building.position.y = 3.75;
+    building.castShadow = true;
+    building.receiveShadow = true;
+    group.add(building);
+
+    const glass = new THREE.Mesh(new THREE.BoxGeometry(14, 2.8, 0.2), glassMat);
+    glass.position.set(0, 1.6, 6.1);
+    group.add(glass);
+
+    const sign = new THREE.Mesh(new THREE.BoxGeometry(12, 1.6, 0.2), signMat);
+    sign.position.set(0, 6.8, 6.15);
+    group.add(sign);
+
+    group.position.set(x, y, z);
+    this.group.add(group);
+  }
+
+  // 16. Milestone & Signboards
   private createSignboards(): void {
     const signs = [
-      { text: 'ALAPPUZHA 0 KM', x: 12, z: 340, rot: 0 },
-      { text: 'VILLAGE JUNCTION', x: 2, z: 40, rot: 0.2 },
-      { text: 'MUNNAR GHAT ROAD (HAIRPIN)', x: 60, z: -85, rot: -0.4 },
-      { text: 'TOP STATION MUNNAR (ALT 1880M)', x: -45, z: -420, rot: 0.6 }
+      { text: 'KACHERIPPADI JUNCTION • MANJERI', x: 10, z: -10, rot: 0 },
+      { text: 'CALICUT / KOZHIKODE 48 KM (SH 28)', x: -60, z: -40, rot: -0.4 },
+      { text: 'NILAMBUR 24 KM', x: 50, z: -45, rot: 0.5 },
+      { text: 'PANDIKKAD 16 KM', x: 70, z: 12, rot: 0 },
+      { text: 'MALAPPURAM 12 KM (SH 71)', x: -30, z: 65, rot: 0.2 },
+      { text: 'GOVT MEDICAL COLLEGE HOSPITAL ->', x: -110, z: -40, rot: -0.8 },
+      { text: 'DISTRICT & SESSIONS COURT ->', x: 25, z: 50, rot: 0.3 },
+      { text: 'VETTEKKODE HILL VIEWPOINT (ALT 78M)', x: 280, z: 100, rot: -0.5 }
     ];
 
     const postMat = new THREE.MeshStandardMaterial({ color: 0x4b5563 });

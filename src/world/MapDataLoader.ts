@@ -4,12 +4,12 @@ import keralaBuildingsData from '../../data/buildings/kerala_buildings.json';
 import keralaElevationData from '../../data/terrain/kerala_elevation.json';
 
 export const WORLD_CONFIG = {
-  region: "Kerala",
+  region: "Manjeri, Malappuram",
   center: {
-    lat: 10.0889,
-    lon: 76.2711
+    lat: 11.1200,
+    lon: 76.1200
   },
-  worldSizeKm: 20
+  worldSizeKm: 5
 };
 
 export interface OSMFeature<G, P> {
@@ -48,7 +48,20 @@ export interface BuildingProperties {
   id: string;
   name: string;
   building: string;
-  category: 'Tharavadu' | 'Thattukada' | 'BusShelter' | 'BanyanPlatform' | 'Houseboat' | 'Viewpoint';
+  category:
+    | 'CourtComplex'
+    | 'Hospital'
+    | 'BusTerminal'
+    | 'OldBusStand'
+    | 'Mosque'
+    | 'Temple'
+    | 'Commercial'
+    | 'Tharavadu'
+    | 'Thattukada'
+    | 'BusShelter'
+    | 'BanyanPlatform'
+    | 'Houseboat'
+    | 'Viewpoint';
   levels?: number;
 }
 
@@ -60,7 +73,7 @@ export interface LocalPoint2D {
 export class MapDataLoader {
   private static readonly METERS_PER_DEGREE_LAT = 111320;
   // Visual game scale factor mapping OSM delta to world meters (fits the 900m exploration terrain)
-  private static readonly COORDINATE_SCALE = 0.085;
+  private static readonly COORDINATE_SCALE = 0.24;
 
   /**
    * Converts GPS (longitude, latitude) to local 3D Cartesian coordinates (x, z) in meters.

@@ -38,58 +38,67 @@ export class HUD {
 
   public landmarks: Landmark[] = [
     {
-      id: 'alappuzha',
-      name: 'Alappuzha Backwaters',
-      sub: 'Coastal shores & palm groves',
-      icon: '🌴',
-      x: 15,
-      z: 370,
-      desc: 'Serene coastal lowlands with houseboats & coconut groves'
+      id: 'kacherippadi',
+      name: 'Kacherippadi Town Center',
+      sub: 'Main crossroads & town center',
+      icon: '🏙️',
+      x: 0,
+      z: 0,
+      desc: 'Central bustling crossroads connecting all major highways'
     },
     {
-      id: 'bridge',
-      name: 'Canal Bridge & Jetty',
-      sub: 'Arching bridge over river',
+      id: 'igbt',
+      name: 'Indira Gandhi Bus Terminal',
+      sub: 'New Bus Stand & KSRTC bays',
+      icon: '🚌',
+      x: 100,
+      z: -35,
+      desc: 'Central transport hub with extensive bus departure platforms'
+    },
+    {
+      id: 'old_bus_stand',
+      name: 'Old Bus Stand & Market',
+      sub: 'Commercial core & shopping arcade',
+      icon: '🛍️',
+      x: -115,
+      z: 60,
+      desc: 'Historic shopping district with fresh markets and tea stalls'
+    },
+    {
+      id: 'court',
+      name: 'District & Sessions Court',
+      sub: 'Court Road administrative complex',
+      icon: '⚖️',
+      x: 42,
+      z: 165,
+      desc: 'Judicial headquarters and Head Post Office on Court Hill'
+    },
+    {
+      id: 'med_college',
+      name: 'Govt. Medical College Hospital',
+      sub: 'Melakkam health campus (24h ER)',
+      icon: '🏥',
+      x: -270,
+      z: -175,
+      desc: 'Major tertiary hospital & medical college serving Malabar'
+    },
+    {
+      id: 'cherupuzha',
+      name: 'Cherupuzha River Bridge',
+      sub: 'Anakkayam Road crossing',
       icon: '🌉',
       x: 0,
-      z: 280,
-      desc: 'Historic river crossing connecting coast to central Kerala'
+      z: 310,
+      desc: 'Scenic river crossing over the Kadalundi river tributary'
     },
     {
-      id: 'village',
-      name: 'Heritage Village & Thattukada',
-      sub: 'Traditional houses & tea stall',
-      icon: '☕',
-      x: -24,
-      z: -10,
-      desc: 'Village center with hot Kerala chai & Tharavadu houses'
-    },
-    {
-      id: 'junction',
-      name: 'KSRTC Bus Stop & Banyan',
-      sub: 'Town junction & Aalthara tree',
-      icon: '🚏',
-      x: 20,
-      z: 15,
-      desc: 'Milestone crossroads with sacred banyan tree'
-    },
-    {
-      id: 'ghat',
-      name: 'Munnar Ghat Hairpins',
-      sub: 'Mountain curves & tea hills',
-      icon: '⚠️',
-      x: 50,
-      z: -200,
-      desc: 'Scenic steep climb through the Western Ghats'
-    },
-    {
-      id: 'munnar_peak',
-      name: 'Top Station Munnar Viewpoint',
-      sub: 'Highest mountain peak (1880m)',
+      id: 'vettekkode',
+      name: 'Vettekkode Hill Viewpoint',
+      sub: 'Scenic hilltop summit (78m)',
       icon: '⛰️',
-      x: -60,
-      z: -435,
-      desc: 'Spectacular panoramic summit overlooking tea valley mist'
+      x: 330,
+      z: 160,
+      desc: 'Panoramic hilltop overlooking the rolling Manjeri town valley'
     }
   ];
 
@@ -114,7 +123,7 @@ export class HUD {
     this.populateLandmarkSidebar();
 
     setTimeout(() => {
-      this.showRegionBanner('Alappuzha Backwaters', 'Coconut palm shores & traditional bridge');
+      this.showRegionBanner('Kacherippadi • Manjeri', 'Welcome to Manjeri, Malappuram');
     }, 1200);
   }
 
@@ -240,19 +249,31 @@ export class HUD {
     }
   }
 
-  public checkRegion(z: number): void {
+  public checkRegion(x: number, z: number): void {
     let regionName = '';
     let regionDesc = '';
 
-    if (z > 140) {
-      regionName = 'Alappuzha Backwaters';
-      regionDesc = 'Coconut palm shores & traditional bridge';
-    } else if (z > -80) {
-      regionName = 'Heritage Village Junction';
-      regionDesc = 'Traditional Tharavadu houses & Thattukada';
+    if (z > 240) {
+      regionName = 'Cherupuzha River Valley';
+      regionDesc = 'Anakkayam road bridge & riverbank palm groves';
+    } else if (x < -140 && z < -60) {
+      regionName = 'Melakkam • Medical College';
+      regionDesc = 'Govt. Medical College Hospital & Melakkam Ridge';
+    } else if (x > 180 && z > 40) {
+      regionName = 'Vettekkode Hills';
+      regionDesc = 'Scenic eastern hills & panoramic viewpoint';
+    } else if (z > 80 && x > 10) {
+      regionName = 'Court Road • Judicial Complex';
+      regionDesc = 'District & Sessions Court and Post Office';
+    } else if (x < -60 && z > 20) {
+      regionName = 'Old Bus Stand & Market';
+      regionDesc = 'Historic commercial core & municipal shopping';
+    } else if (x > 50 && z < -10) {
+      regionName = 'Indira Gandhi Bus Terminal';
+      regionDesc = 'New Bus Stand transport hub & KSRTC docks';
     } else {
-      regionName = 'Munnar Tea Valleys';
-      regionDesc = 'Winding mountain hairpins & emerald hills';
+      regionName = 'Kacherippadi Town Center';
+      regionDesc = 'Central highway crossroads & Malabar tea stalls';
     }
 
     if (regionName !== this.currentRegion) {

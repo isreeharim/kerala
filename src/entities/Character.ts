@@ -4,7 +4,7 @@ import { RoadSystem } from '../world/RoadSystem';
 
 export class Character {
   public group: THREE.Group = new THREE.Group();
-  public position: THREE.Vector3 = new THREE.Vector3(0, 0, 345);
+  public position: THREE.Vector3 = new THREE.Vector3(0, 0, 10);
   public rotation: THREE.Euler = new THREE.Euler(0, Math.PI, 0, 'YXZ');
 
   // Locomotion parameters

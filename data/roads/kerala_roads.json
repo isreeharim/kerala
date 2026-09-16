@@ -1,105 +1,436 @@
 {
   "type": "FeatureCollection",
-  "name": "kerala_roads",
+  "name": "manjeri_roads",
   "features": [
     {
       "type": "Feature",
       "properties": {
-        "id": "road-coastal-1",
-        "name": "Alappuzha Coastal Road",
-        "type": "MainRoad",
+        "id": "road-calicut-sh28",
+        "name": "Calicut (Kozhikode) Road • SH 28",
+        "type": "Highway",
         "surface": "asphalt",
+        "bridge": false,
         "maxspeed": 60
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [76.2730, 10.0450],
-          [76.2725, 10.0520],
-          [76.2718, 10.0600],
-          [76.2711, 10.0660]
+          [
+            76.12,
+            11.12
+          ],
+          [
+            76.118283,
+            11.120936
+          ],
+          [
+            76.115804,
+            11.122059
+          ],
+          [
+            76.113134,
+            11.123369
+          ],
+          [
+            76.109701,
+            11.124866
+          ],
+          [
+            76.105505,
+            11.126737
+          ]
         ]
       }
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "road-bridge-1",
-        "name": "Backwater Canal Bridge",
+        "id": "road-nilambur",
+        "name": "Nilambur Road",
         "type": "MainRoad",
-        "bridge": true,
-        "surface": "concrete",
-        "maxspeed": 40
+        "surface": "asphalt",
+        "bridge": false,
+        "maxspeed": 55
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [76.2711, 10.0660],
-          [76.2711, 10.0690],
-          [76.2711, 10.0720],
-          [76.2711, 10.0750]
+          [
+            76.12,
+            11.12
+          ],
+          [
+            76.121335,
+            11.121123
+          ],
+          [
+            76.123052,
+            11.123182
+          ],
+          [
+            76.12515,
+            11.125614
+          ],
+          [
+            76.127248,
+            11.128422
+          ],
+          [
+            76.129918,
+            11.131977
+          ],
+          [
+            76.132207,
+            11.134972
+          ]
         ]
       }
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "road-village-1",
-        "name": "Heritage Village Link",
-        "type": "VillageRoad",
+        "id": "road-pandikkad",
+        "name": "Pandikkad Road",
+        "type": "MainRoad",
         "surface": "asphalt",
-        "maxspeed": 45
-      },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [76.2711, 10.0750],
-          [76.2722, 10.0800],
-          [76.2705, 10.0850],
-          [76.2690, 10.0889]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "id": "road-town-square",
-        "name": "Thattukada Town Junction",
-        "type": "Highway",
-        "surface": "asphalt",
+        "bridge": false,
         "maxspeed": 50
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [76.2690, 10.0889],
-          [76.2700, 10.0910],
-          [76.2735, 10.0940]
+          [
+            76.12,
+            11.12
+          ],
+          [
+            76.122289,
+            11.119813
+          ],
+          [
+            76.124959,
+            11.119439
+          ],
+          [
+            76.128011,
+            11.119251
+          ],
+          [
+            76.131062,
+            11.119326
+          ],
+          [
+            76.134495,
+            11.119064
+          ]
         ]
       }
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "road-munnar-ghat",
-        "name": "Munnar Ghat Hairpin Pass",
-        "type": "HillRoad",
+        "id": "road-malappuram-sh71",
+        "name": "Malappuram Road • SH 71",
+        "type": "MainRoad",
         "surface": "asphalt",
+        "bridge": false,
+        "maxspeed": 55
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.12,
+            11.12
+          ],
+          [
+            76.119237,
+            11.117941
+          ],
+          [
+            76.118665,
+            11.115508
+          ],
+          [
+            76.118474,
+            11.112514
+          ],
+          [
+            76.119046,
+            11.109894
+          ],
+          [
+            76.12,
+            11.108397
+          ],
+          [
+            76.120763,
+            11.106525
+          ],
+          [
+            76.121526,
+            11.10428
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "road-anakkayam-bridge",
+        "name": "Cherupuzha River Bridge (Anakkayam)",
+        "type": "MainRoad",
+        "surface": "concrete",
+        "bridge": true,
+        "maxspeed": 40
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.119046,
+            11.109894
+          ],
+          [
+            76.119619,
+            11.109145
+          ],
+          [
+            76.12,
+            11.108397
+          ],
+          [
+            76.120381,
+            11.107648
+          ],
+          [
+            76.120763,
+            11.106525
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "road-court",
+        "name": "Court Road (Judicial Complex)",
+        "type": "VillageRoad",
+        "surface": "asphalt",
+        "bridge": false,
+        "maxspeed": 40
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.12,
+            11.12
+          ],
+          [
+            76.120763,
+            11.118316
+          ],
+          [
+            76.121335,
+            11.11607
+          ],
+          [
+            76.121602,
+            11.113824
+          ],
+          [
+            76.121144,
+            11.11214
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "road-med-college",
+        "name": "Medical College Road (Melakkam)",
+        "type": "MainRoad",
+        "surface": "asphalt",
+        "bridge": false,
+        "maxspeed": 45
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.118283,
+            11.120936
+          ],
+          [
+            76.116185,
+            11.121123
+          ],
+          [
+            76.113706,
+            11.122246
+          ],
+          [
+            76.111226,
+            11.124117
+          ],
+          [
+            76.109701,
+            11.12655
+          ],
+          [
+            76.110082,
+            11.129357
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "road-igbt-loop",
+        "name": "Indira Gandhi Bus Terminal Access Loop",
+        "type": "VillageRoad",
+        "surface": "asphalt",
+        "bridge": false,
+        "maxspeed": 30
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.121335,
+            11.121123
+          ],
+          [
+            76.123052,
+            11.121497
+          ],
+          [
+            76.124577,
+            11.121684
+          ],
+          [
+            76.12534,
+            11.120561
+          ],
+          [
+            76.124959,
+            11.119439
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "road-old-bus-stand",
+        "name": "Old Bus Stand Market Street",
+        "type": "VillageRoad",
+        "surface": "asphalt",
+        "bridge": false,
         "maxspeed": 35
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [76.2735, 10.0940],
-          [76.2780, 10.0980],
-          [76.2820, 10.1030],
-          [76.2760, 10.1070],
-          [76.2670, 10.1100],
-          [76.2610, 10.1140],
-          [76.2670, 10.1180],
-          [76.2750, 10.1220],
-          [76.2720, 10.1260],
-          [76.2660, 10.1290]
+          [
+            76.12,
+            11.12
+          ],
+          [
+            76.118856,
+            11.119064
+          ],
+          [
+            76.117139,
+            11.118316
+          ],
+          [
+            76.115613,
+            11.117754
+          ],
+          [
+            76.114278,
+            11.118503
+          ],
+          [
+            76.116185,
+            11.121123
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "road-bypass",
+        "name": "Manjeri Northern Bypass",
+        "type": "MainRoad",
+        "surface": "asphalt",
+        "bridge": false,
+        "maxspeed": 60
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.109701,
+            11.124866
+          ],
+          [
+            76.111989,
+            11.12786
+          ],
+          [
+            76.115804,
+            11.129732
+          ],
+          [
+            76.120381,
+            11.13048
+          ],
+          [
+            76.12515,
+            11.125614
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "road-vettekkode",
+        "name": "Vettekkode Hill Scenic Road",
+        "type": "HillRoad",
+        "surface": "asphalt",
+        "bridge": false,
+        "maxspeed": 40
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.128011,
+            11.119251
+          ],
+          [
+            76.129918,
+            11.117754
+          ],
+          [
+            76.131253,
+            11.115883
+          ],
+          [
+            76.132588,
+            11.114011
+          ],
+          [
+            76.133732,
+            11.111391
+          ]
         ]
       }
     }

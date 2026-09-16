@@ -1,20 +1,66 @@
 {
-  "region": "Kerala",
-  "datum": "WGS84",
-  "unit": "meters",
-  "elevationProfile": {
-    "alappuzhaCoast": {
-      "latRange": [10.0400, 10.0750],
-      "elevationMeters": [0.5, 3.5],
-      "waterLevelMeters": 1.2
-    },
-    "heritageVillage": {
-      "latRange": [10.0750, 10.0950],
-      "elevationMeters": [4.0, 16.0]
-    },
-    "munnarWesternGhats": {
-      "latRange": [10.0950, 10.1350],
-      "elevationMeters": [18.0, 85.0]
-    }
+  "type": "FeatureCollection",
+  "name": "manjeri_elevation",
+  "properties": {
+    "source": "Open DEM / Manjeri Municipal Topography",
+    "datum": "WGS84",
+    "unit": "meters",
+    "regions": [
+      {
+        "name": "Cherupuzha River Valley (South)",
+        "elevationRange": [
+          30,
+          34
+        ],
+        "zRange": [
+          250,
+          420
+        ]
+      },
+      {
+        "name": "Kacherippadi & Town Central Plains",
+        "elevationRange": [
+          40,
+          45
+        ],
+        "zRange": [
+          -100,
+          250
+        ]
+      },
+      {
+        "name": "Court Hill & Post Office Plateau",
+        "elevationRange": [
+          50,
+          58
+        ],
+        "zRange": [
+          100,
+          220
+        ]
+      },
+      {
+        "name": "Melakkam & Medical College Ridge",
+        "elevationRange": [
+          58,
+          68
+        ],
+        "zRange": [
+          -260,
+          -100
+        ]
+      },
+      {
+        "name": "Vettekkode Hills",
+        "elevationRange": [
+          65,
+          78
+        ],
+        "zRange": [
+          40,
+          240
+        ]
+      }
+    ]
   }
 }

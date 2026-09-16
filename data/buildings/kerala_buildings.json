@@ -1,111 +1,515 @@
 {
   "type": "FeatureCollection",
-  "name": "kerala_buildings",
+  "name": "manjeri_buildings",
   "features": [
     {
       "type": "Feature",
       "properties": {
-        "id": "bldg-thattukada",
-        "name": "Village Thattukada Tea Stall",
-        "building": "kiosk",
-        "category": "Thattukada"
+        "id": "bldg-court",
+        "name": "District & Sessions Court Complex",
+        "category": "CourtComplex",
+        "building": "civic",
+        "levels": 1
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [76.2687, 10.0880]
+        "coordinates": [
+          76.121602,
+          11.113824
+        ]
       }
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "bldg-bus-shelter",
-        "name": "KSRTC Bus Waiting Shelter",
+        "id": "bldg-post-office",
+        "name": "Manjeri Head Post Office",
+        "category": "Commercial",
+        "building": "public",
+        "levels": 2
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.120954,
+          11.115883
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bldg-med-college-main",
+        "name": "Govt. Medical College Hospital (Main Ward)",
+        "category": "Hospital",
+        "building": "hospital",
+        "levels": 3
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.109701,
+          11.12655
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bldg-med-college-er",
+        "name": "Medical College Emergency & Trauma Care",
+        "category": "Hospital",
+        "building": "hospital",
+        "levels": 3
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.110464,
+          11.12524
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bldg-med-college-acad",
+        "name": "Medical College Academic Block",
+        "category": "Hospital",
+        "building": "education",
+        "levels": 3
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.108175,
+          11.127112
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bldg-igbt-main",
+        "name": "Indira Gandhi Bus Terminal (New Bus Stand)",
+        "category": "BusTerminal",
         "building": "transportation",
-        "category": "BusShelter"
+        "levels": 1
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [76.2730, 10.0900]
+        "coordinates": [
+          76.123815,
+          11.12131
+        ]
       }
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "bldg-tharavadu-1",
-        "name": "Heritage Tharavadu House (North)",
-        "building": "residential",
-        "category": "Tharavadu",
+        "id": "bldg-old-bus-stand",
+        "name": "Old Bus Stand & Municipal Market",
+        "category": "OldBusStand",
+        "building": "commercial",
+        "levels": 1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.115613,
+          11.117754
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bldg-municipal-hall",
+        "name": "Manjeri Municipal Town Hall",
+        "category": "Commercial",
+        "building": "civic",
         "levels": 2
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [76.2745, 10.0860]
+        "coordinates": [
+          76.117521,
+          11.120561
+        ]
       }
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "bldg-tharavadu-2",
-        "name": "Heritage Tharavadu House (South)",
-        "building": "residential",
-        "category": "Tharavadu",
+        "id": "bldg-juma-masjid",
+        "name": "Historic Manjeri Town Juma Masjid",
+        "category": "Mosque",
+        "building": "place_of_worship",
+        "levels": 1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.119046,
+          11.121497
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bldg-temple",
+        "name": "Karnakkaparambu Temple",
+        "category": "Temple",
+        "building": "place_of_worship",
+        "levels": 1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.122861,
+          11.116818
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bldg-viewpoint-vettekkode",
+        "name": "Vettekkode Hill Panoramic Viewpoint",
+        "category": "Viewpoint",
+        "building": "shelter",
+        "levels": 1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.132588,
+          11.114011
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bldg-thattukada-center",
+        "name": "Kacherippadi Chaya Kada (Tea Stall)",
+        "category": "Thattukada",
+        "building": "kiosk",
+        "levels": 1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.119542,
+          11.120299
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bldg-thattukada-hospital",
+        "name": "Melakkam Hospital Chaya Kada",
+        "category": "Thattukada",
+        "building": "kiosk",
+        "levels": 1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.111608,
+          11.12393
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bldg-thattukada-market",
+        "name": "Old Bus Stand Malabar Tea Stall",
+        "category": "Thattukada",
+        "building": "kiosk",
+        "levels": 1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.116185,
+          11.118129
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bldg-bus-shelter-center",
+        "name": "Kacherippadi KSRTC Waiting Shelter",
+        "category": "BusShelter",
+        "building": "shelter",
+        "levels": 1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.120572,
+          11.120449
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bldg-bus-shelter-pandikkad",
+        "name": "Pandikkad Road Bus Shelter",
+        "category": "BusShelter",
+        "building": "shelter",
+        "levels": 1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.12515,
+          11.119626
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bldg-bus-shelter-hospital",
+        "name": "Medical College Hospital Bus Shelter",
+        "category": "BusShelter",
+        "building": "shelter",
+        "levels": 1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.111036,
+          11.124492
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bldg-banyan-platform",
+        "name": "Town Junction Aalthara Banyan Tree",
+        "category": "BanyanPlatform",
+        "building": "historic",
+        "levels": 1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.120305,
+          11.119701
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bldg-comm-calicut-1",
+        "name": "Calicut Road Commercial Plaza",
+        "category": "Commercial",
+        "building": "commercial",
         "levels": 2
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [76.2655, 10.0920]
+        "coordinates": [
+          76.117139,
+          11.121684
+        ]
       }
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "bldg-banyan",
-        "name": "Sacred Banyan Tree Aalthara",
-        "building": "shrine",
-        "category": "BanyanPlatform"
+        "id": "bldg-comm-calicut-2",
+        "name": "Al-Madina Hypermarket & Textiles",
+        "category": "Commercial",
+        "building": "retail",
+        "levels": 2
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [76.2705, 10.0850]
+        "coordinates": [
+          76.11466,
+          11.122994
+        ]
       }
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "bldg-houseboat-1",
-        "name": "Kettuvallam Houseboat Mooring",
-        "building": "boat",
-        "category": "Houseboat"
+        "id": "bldg-comm-pandikkad-1",
+        "name": "Pandikkad Road Shopping Arcade",
+        "category": "Commercial",
+        "building": "retail",
+        "levels": 2
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [76.2740, 10.0710]
+        "coordinates": [
+          76.123242,
+          11.119326
+        ]
       }
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "bldg-houseboat-2",
-        "name": "Kettuvallam Houseboat West",
-        "building": "boat",
-        "category": "Houseboat"
+        "id": "bldg-comm-pandikkad-2",
+        "name": "Malabar Gold & Diamonds Block",
+        "category": "Commercial",
+        "building": "commercial",
+        "levels": 2
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [76.2665, 10.0720]
+        "coordinates": [
+          76.126676,
+          11.119102
+        ]
       }
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "bldg-munnar-viewpoint",
-        "name": "Top Station Viewpoint Shelter",
-        "building": "viewpoint",
-        "category": "Viewpoint"
+        "id": "bldg-comm-nilambur-1",
+        "name": "Nilambur Road Automobile Showroom",
+        "category": "Commercial",
+        "building": "commercial",
+        "levels": 2
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [76.2650, 10.1285]
+        "coordinates": [
+          76.122289,
+          11.122246
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bldg-comm-nilambur-2",
+        "name": "Kizhakkethala Commercial Arcade",
+        "category": "Commercial",
+        "building": "commercial",
+        "levels": 2
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.124196,
+          11.124492
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bldg-house-melakkam-1",
+        "name": "Melakkam Hillside Villa",
+        "category": "Tharavadu",
+        "building": "residential",
+        "levels": 1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.113134,
+          11.124866
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bldg-house-melakkam-2",
+        "name": "Thurakkal Traditional House",
+        "category": "Tharavadu",
+        "building": "residential",
+        "levels": 1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.111989,
+          11.12262
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bldg-house-kizhakkethala-1",
+        "name": "Kizhakkethala Heritage House",
+        "category": "Tharavadu",
+        "building": "residential",
+        "levels": 1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.126866,
+          11.124117
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bldg-house-kizhakkethala-2",
+        "name": "East Manjeri Villa",
+        "category": "Tharavadu",
+        "building": "residential",
+        "levels": 1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.128774,
+          11.122246
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bldg-house-vettekkode-1",
+        "name": "Vettekkode Valley House",
+        "category": "Tharavadu",
+        "building": "residential",
+        "levels": 1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.130299,
+          11.117006
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bldg-house-court-1",
+        "name": "Court Hill Advocates Colony Villa",
+        "category": "Tharavadu",
+        "building": "residential",
+        "levels": 1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.122098,
+          11.11476
+        ]
       }
     }
   ]

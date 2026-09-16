@@ -120,10 +120,10 @@ class KeralaHorizonsGame {
     this.character = new Character(this.terrain, this.roadSystem);
     this.scene.add(this.character.group);
 
-    this.bike = new Bike(this.terrain, this.roadSystem, new THREE.Vector3(8, 0, 335));
+    this.bike = new Bike(this.terrain, this.roadSystem, new THREE.Vector3(6, 0, 12));
     this.scene.add(this.bike.group);
 
-    this.car = new Car(this.terrain, this.roadSystem, new THREE.Vector3(-12, 0, 332));
+    this.car = new Car(this.terrain, this.roadSystem, new THREE.Vector3(-8, 0, 14));
     this.scene.add(this.car.group);
 
     // 9. Controllers & UI
@@ -153,10 +153,10 @@ class KeralaHorizonsGame {
       let targetX = Math.max(-420, Math.min(420, tx));
       let targetZ = Math.max(-420, Math.min(420, tz));
 
-      // If fast traveling near canal water, snap safely to bridge deck
-      if (targetZ >= 238 && targetZ <= 322 && Math.abs(targetX) < 25) {
+      // If fast traveling near Cherupuzha river water, snap safely to bridge deck
+      if (targetZ >= 285 && targetZ <= 335 && Math.abs(targetX) < 25) {
         targetX = 0;
-        targetZ = 280;
+        targetZ = 310;
       }
 
       if (this.playerMode === 'BIKE') {
@@ -320,9 +320,9 @@ class KeralaHorizonsGame {
     activePos.x = Math.max(-430, Math.min(430, activePos.x));
     activePos.z = Math.max(-430, Math.min(430, activePos.z));
 
-    // Canal Water Safety
-    if (activePos.y < 0.5 && activePos.z >= 235 && activePos.z <= 325) {
-      activePos.set(0, 2.5, 335);
+    // Cherupuzha River Water Safety
+    if (activePos.y < 0.5 && activePos.z >= 285 && activePos.z <= 335) {
+      activePos.set(0, 3.5, 345);
       if (this.playerMode === 'BIKE') {
         this.bike.resetOrientation();
       } else if (this.playerMode === 'CAR') {
@@ -437,7 +437,7 @@ class KeralaHorizonsGame {
     this.hud.updateSpeedometer(currentSpeedKmH, this.playerMode);
     this.minimap.render(activePos, activeHeading, this.bike, this.car, this.roadSystem, this.hud.landmarks);
     this.hud.renderWorldMap(activePos, activeHeading, this.bike, this.car, this.roadSystem);
-    this.hud.checkRegion(activePos.z);
+    this.hud.checkRegion(activePos.x, activePos.z);
 
     // 11. Render 3D Scene
     this.renderer.render(this.scene, this.camera);

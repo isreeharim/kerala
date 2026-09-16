@@ -1,40 +1,38 @@
 {
   "type": "FeatureCollection",
-  "name": "kerala_waterways",
+  "name": "manjeri_waterways",
   "features": [
     {
       "type": "Feature",
       "properties": {
-        "id": "canal-vembanad",
-        "name": "Alappuzha Backwaters & Canal",
-        "waterway": "canal",
-        "width": 42
+        "id": "water-cherupuzha-main",
+        "name": "Cherupuzha River (Kadalundi Tributary)",
+        "waterway": "river",
+        "width": 36
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [76.2400, 10.0705],
-          [76.2550, 10.0715],
-          [76.2711, 10.0705],
-          [76.2880, 10.0690],
-          [76.3100, 10.0710]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "id": "river-periyar-branch",
-        "name": "Village Stream Branch",
-        "waterway": "stream",
-        "width": 14
-      },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [76.2500, 10.0820],
-          [76.2620, 10.0810],
-          [76.2711, 10.0705]
+          [
+            76.103597,
+            11.108397
+          ],
+          [
+            76.111608,
+            11.10821
+          ],
+          [
+            76.12,
+            11.108397
+          ],
+          [
+            76.128392,
+            11.108584
+          ],
+          [
+            76.136403,
+            11.108771
+          ]
         ]
       }
     }

@@ -45,41 +45,46 @@ export class Terrain {
     const clampedX = Math.max(-this.size / 2, Math.min(this.size / 2, x));
     const clampedZ = Math.max(-this.size / 2, Math.min(this.size / 2, z));
 
-    // Continuous real Kerala elevation profile:
-    // South (Z > 120): Alappuzha Coastal Backwaters (0.5m - 3.5m)
-    // Central (Z between -80 and 120): Heritage Village rolling plains (4m - 16m)
-    // North (Z < -80): Munnar Western Ghats Mountain Slopes (18m - 85m)
-    let baseHeight = 0;
-    if (clampedZ > 120) {
-      baseHeight = 2.0;
-    } else if (clampedZ > -80) {
-      const t = (120 - clampedZ) / 200;
-      baseHeight = 2.0 + t * 12.0;
-    } else {
-      // Steeper climb into the Western Ghats
-      const t = (-80 - clampedZ) / 390;
-      baseHeight = 14.0 + Math.pow(t, 1.25) * 55.0;
+    // Base town elevation plateau (Kacherippadi center)
+    let baseHeight = 5.5;
+
+    // 1. Melakkam & Govt Medical College Ridge (North-West)
+    const distToMelakkam = Math.hypot(clampedX - (-260), clampedZ - (-170));
+    if (distToMelakkam < 190) {
+      const t = Math.cos((distToMelakkam / 190) * Math.PI * 0.5);
+      baseHeight += t * 14.5;
     }
 
-    // Mountain noise & stepped tea hill contouring
-    const n1 = this.noise2D(clampedX * 0.003, clampedZ * 0.003) * 14;
-    const n2 = this.noise2D(clampedX * 0.009, clampedZ * 0.009) * 5;
-    const n3 = this.noise2D(clampedX * 0.025, clampedZ * 0.025) * 1.8;
-
-    const hillFactor = Math.max(0, (-clampedZ + 60) / 420);
-    let totalHeight = baseHeight + (n1 + n2 + n3) * (0.35 + hillFactor * 0.75);
-
-    // Carve Backwater Canal (derived from OSM waterway path near Z = 280)
-    const canalCenterZ = 280 + Math.sin(clampedX * 0.015) * 35;
-    const distToCanal = Math.abs(clampedZ - canalCenterZ);
-    const canalWidth = 42;
-
-    if (distToCanal < canalWidth) {
-      const canalDepth = Math.cos((distToCanal / canalWidth) * Math.PI * 0.5);
-      totalHeight -= canalDepth * 5.6;
+    // 2. Vettekkode Scenic Hills (East)
+    const distToVettekkode = Math.hypot(clampedX - 310, clampedZ - 130);
+    if (distToVettekkode < 180) {
+      const t = Math.cos((distToVettekkode / 180) * Math.PI * 0.5);
+      baseHeight += t * 18.0;
     }
 
-    return Math.max(-3.5, totalHeight);
+    // 3. Court Hill Plateau (South-East Court Road)
+    const distToCourt = Math.hypot(clampedX - 45, clampedZ - 165);
+    if (distToCourt < 120) {
+      const t = Math.cos((distToCourt / 120) * Math.PI * 0.5);
+      baseHeight += t * 7.5;
+    }
+
+    // Rolling Malappuram landscape undulations
+    const n1 = this.noise2D(clampedX * 0.004, clampedZ * 0.004) * 6.5;
+    const n2 = this.noise2D(clampedX * 0.012, clampedZ * 0.012) * 2.5;
+    let totalHeight = baseHeight + n1 + n2;
+
+    // 4. Carve Cherupuzha River (Kadalundi tributary near Z = 310)
+    const riverCenterZ = 310 + Math.sin(clampedX * 0.012) * 16;
+    const distToRiver = Math.abs(clampedZ - riverCenterZ);
+    const riverWidth = 38;
+
+    if (distToRiver < riverWidth) {
+      const riverDepth = Math.cos((distToRiver / riverWidth) * Math.PI * 0.5);
+      totalHeight -= riverDepth * 6.8;
+    }
+
+    return Math.max(-2.5, totalHeight);
   }
 
   public getNormalAt(x: number, z: number): THREE.Vector3 {
@@ -98,12 +103,12 @@ export class Terrain {
     const pos = this.geometry.attributes.position;
     const colors: number[] = [];
 
-    // Kerala color palette
-    const colorWaterBank = new THREE.Color(0x7c734b); // Alluvial canal silt
-    const colorLowGrass = new THREE.Color(0x2f6429);  // Lush coastal palm greenery
-    const colorVillageField = new THREE.Color(0x3e7935); // Paddy grass
-    const colorTeaPlantation = new THREE.Color(0x1e541c); // Deep emerald Munnar tea bushes
-    const colorHillRock = new THREE.Color(0x4b5848); // Mountain rock
+    // Malappuram color palette: Tropical greenery, red laterite soil, and riverbank sand
+    const colorRiverBank = new THREE.Color(0xb8976b);   // River sand & silt
+    const colorRedLaterite = new THREE.Color(0x99482c); // Classic Malabar laterite red earth
+    const colorGrass = new THREE.Color(0x2d6a31);       // Lush tropical green
+    const colorUrbanGround = new THREE.Color(0x476249);  // Mixed town ground
+    const colorHilltop = new THREE.Color(0x5a7d36);      // Sunlit hilltop grass
 
     for (let i = 0; i < pos.count; i++) {
       const vx = pos.getX(i);
@@ -112,21 +117,24 @@ export class Terrain {
       pos.setY(i, vy);
 
       const c = new THREE.Color();
-      if (vy < this.waterLevel + 0.4) {
-        c.copy(colorWaterBank);
-      } else if (vz > 110) {
-        const blend = Math.min(1, Math.max(0, (vy - this.waterLevel) / 3.5));
-        c.lerpColors(colorWaterBank, colorLowGrass, blend);
-      } else if (vz > -80) {
-        c.copy(colorVillageField);
-      } else if (vy > 38) {
-        c.lerpColors(colorTeaPlantation, colorHillRock, (vy - 38) / 30);
+      if (vy < this.waterLevel + 0.6) {
+        c.copy(colorRiverBank);
+      } else if (vy > 14.0) {
+        c.copy(colorHilltop);
       } else {
-        c.copy(colorTeaPlantation);
+        // Blend between lush grass, town ground, and exposed red laterite
+        const noiseVal = this.noise2D(vx * 0.03, vz * 0.03);
+        if (noiseVal > 0.35) {
+          c.copy(colorRedLaterite);
+        } else if (Math.hypot(vx, vz) < 140) {
+          c.copy(colorUrbanGround);
+        } else {
+          c.copy(colorGrass);
+        }
       }
 
-      // Natural noise variation
-      const tint = (this.noise2D(vx * 0.05, vz * 0.05) + 1) * 0.08;
+      // Natural tint variation
+      const tint = (this.noise2D(vx * 0.06, vz * 0.06) + 1) * 0.06;
       c.r = Math.min(1, Math.max(0, c.r + tint));
       c.g = Math.min(1, Math.max(0, c.g + tint));
       c.b = Math.min(1, Math.max(0, c.b + tint));
