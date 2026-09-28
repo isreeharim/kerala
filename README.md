@@ -1,127 +1,214 @@
-# 🏛️ Manjeri 3D Open-World Explorer | Malappuram, Kerala
+# GeoLibre
 
-A high-performance 3D open-world exploration game recreating **Manjeri Municipality** in the **Malappuram District of Kerala**, built with **Three.js**, **Vite**, **TypeScript**, and **Rapier3D Physics** using open geographic data derived from **OpenStreetMap (OSM)** and open elevation profiles.
+[![Launch GeoLibre Web](https://img.shields.io/badge/Launch-GeoLibre%20Web-green.svg)](https://web.geolibre.app/)
+[![GeoLibre shared project](https://img.shields.io/badge/GeoLibre-share-green.svg)](https://share.geolibre.app)
+[![GeoLibre plugins](https://img.shields.io/badge/GeoLibre-plugins-green.svg)](https://plugins.geolibre.app)
+[![image](https://img.shields.io/pypi/v/geolibre.svg)](https://pypi.python.org/pypi/geolibre)
+[![R package](https://img.shields.io/badge/R-package-276DC3?logo=r&logoColor=white)](https://r.geolibre.app/)
+[![image](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/opengeos/GeoLibre/blob/main/python/examples/getting-started.ipynb)
+[![image](https://img.shields.io/conda/vn/conda-forge/geolibre.svg)](https://anaconda.org/conda-forge/geolibre)
+[![Conda Recipe](https://img.shields.io/badge/recipe-geolibre-green.svg)](https://github.com/conda-forge/geolibre-feedstock)
+[![Microsoft Store](https://img.shields.io/badge/Microsoft%20Store-GeoLibre-0078D4?logo=windows)](https://apps.microsoft.com/detail/9nwt67rv531x)
+[![Mac App Store](https://img.shields.io/badge/Mac%20App%20Store-GeoLibre-0D96F6?logo=apple&logoColor=white)](https://apps.apple.com/app/geolibre-desktop/id6796848769)
+[![App Store](https://img.shields.io/badge/App%20Store-GeoLibre-0D96F6?logo=appstore&logoColor=white)](https://apps.apple.com/app/geolibre/id6796039674)
+[![Google Play](https://img.shields.io/badge/Google%20Play-GeoLibre-01875F?logo=googleplay&logoColor=white)](https://play.google.com/store/apps/details?id=org.geolibre.app)
+[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-GeoLibre-4285F4?logo=googlechrome&logoColor=white)](https://chromewebstore.google.com/detail/open-data-in-geolibre/joinecgbfoldanidcoakpjgkbaceaooj)
+[![AUR version](https://img.shields.io/aur/version/geolibre-bin?logo=archlinux&label=AUR)](https://aur.archlinux.org/packages/geolibre-bin)
+[![FlatPark](https://img.shields.io/badge/FlatPark-GeoLibre-4A90D9?logo=flatpak)](https://flatpark.org/apps/app.geolibre.GeoLibre/)
+[![image](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20785400.svg)](https://doi.org/10.5281/zenodo.20785400)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/opengeos/GeoLibre)
 
----
+A free and open-source, lightweight, cloud-native GIS platform for visualizing, exploring, and analyzing geospatial data. It runs everywhere you do, in the web browser, on the desktop, on mobile, and inside Jupyter notebooks, all while keeping your data local and private.
 
-## 🗺️ Open Geographic Data Architecture
+It also ships **1,000+ geoprocessing tools** that run *entirely in your browser* on WebAssembly — terrain, hydrology, LiDAR, remote sensing, and vector analysis with no server, no install, and no data ever leaving your machine.
 
-Manjeri Open World turns real-world geographic data into an optimized, continuous 3D game environment without using proprietary map tiles or imagery.
+GeoLibre is built with **Tauri v2**, **React**, **TypeScript**, **MapLibre GL JS**, **DuckDB-WASM Spatial**, and **deck.gl**. The same workspace runs as a native desktop app, native Android and iOS apps, in any modern web browser, and adapts responsively to mobile and small screens.
 
-### 1. Geographic Data Pipeline & Separation
-All geographic data files are maintained separately from the rendering engine under `data/`:
+One project can be viewed through **four rendering engines**: MapLibre GL JS (the
+default), Mapbox GL JS, CesiumJS, or the ArcGIS Maps SDK for JavaScript. Switch
+the primary map from **View → Rendering engine**, or mix engines in synchronized
+split panes, without duplicating the project or its layers. See the
+[rendering-engine guide](https://geolibre.app/user-guide/rendering-engines/) for
+capabilities, credentials, and current compatibility.
 
-```text
-openworld/
-├── data/
-│   ├── roads/kerala_roads.json           # Categorized OSM road splines (Calicut Rd SH28, Nilambur Rd, Pandikkad Rd, Malappuram Rd SH71, Court Rd)
-│   ├── buildings/kerala_buildings.json   # Real Manjeri building anchors (District Court, Medical College, IGBT Bus Terminal, Old Bus Stand, Masjid, Temple)
-│   ├── waterways/kerala_waterways.json   # Cherupuzha / Kadalundi River tributary
-│   └── terrain/kerala_elevation.json     # Continuous regional elevation metadata (Valley 30m -> Hills 78m)
-```
+- **[Launch GeoLibre Web](https://web.geolibre.app/)** — the full app in your browser, nothing to install
+- **[Download the desktop app](https://geolibre.app/downloads/)** — Windows, macOS, and Linux installers
+- **[Get it on the Mac App Store](https://apps.apple.com/app/geolibre-desktop/id6796848769)** — the sandboxed macOS build
+- **[Get it on the App Store](https://apps.apple.com/app/geolibre/id6796039674)** — the native iOS app for iPhone and iPad
+- **[Get it on Google Play](https://play.google.com/store/apps/details?id=org.geolibre.app)** — the native Android app
+- **[Get the Chrome extension](https://chromewebstore.google.com/detail/open-data-in-geolibre/joinecgbfoldanidcoakpjgkbaceaooj)** — open datasets you find on any webpage in GeoLibre
+- **[Use the Python package](https://geolibre.app/python/)** — embed and control the full app in Jupyter notebooks
+- **[Use the R package](https://r.geolibre.app/)** — build interactive maps in RStudio, Quarto, R Markdown, and Shiny
+- **[1,000+ geoprocessing tools](https://geolibre.app/user-guide/processing/#whitebox-toolbox)** — the full toolbox, in the browser
+- **[Get started](https://geolibre.app/getting-started/)** — install, run from source, and configure
+- **[Features](https://geolibre.app/features/)** — the complete feature list
+- **[Rendering engines](https://geolibre.app/user-guide/rendering-engines/)** — compare MapLibre, Mapbox, Cesium, and ArcGIS and learn how to switch or combine them.
 
-### 2. Geographic Projection
-`src/world/MapDataLoader.ts` projects spherical GPS coordinates $(\text{latitude}, \text{longitude})$ into local game coordinates $(x, z)$ in meters centered at Kacherippadi junction:
+## Demos
 
-```ts
-export const WORLD_CONFIG = {
-  region: "Manjeri, Malappuram",
-  center: {
-    lat: 11.1200,
-    lon: 76.1200
-  },
-  worldSizeKm: 5
-};
-```
+**Click any screenshot to open it at full resolution, or any animation to play the full-quality video.**
 
-### 3. Open Datasets, Conversion & Attribution
-- **OpenStreetMap Data**:
-  - Source: [OpenStreetMap](https://www.openstreetmap.org) / [Overpass Turbo](https://overpass-turbo.eu/)
-  - License: Open Data Commons Open Database License (ODbL) by the OpenStreetMap Foundation (OSMF).
-  - Attribution: *© OpenStreetMap contributors*.
-  - Export query format: GeoJSON (extracting tags `highway=*`, `waterway=*`, `building=*` within Kerala bounding box `[76.20, 9.95, 76.35, 10.15]`).
-- **Elevation Data**:
-  - Derived from open public domain DEM (Digital Elevation Model) profiles matching the continuous elevation gradient from coastal Alappuzha ($0-4\text{m}$) through village plains ($5-16\text{m}$) up into the Munnar Western Ghats ($18-85\text{m}$).
-- **No Google Maps/Earth Data**: No proprietary Google Maps tiles, imagery, or 3D photogrammetry are used.
+### 3D Tiles
 
----
+[![GeoLibre demo showing 3D Tiles rendered on a MapLibre map](https://assets.geolibre.app/images/GeoLibre-demo.webp)](https://assets.geolibre.app/images/GeoLibre-demo.webp)
 
-## 🎮 Controls
+[Open the live project](https://share.geolibre.app/giswqs/3d-tiles)
 
-| Key | Action | Description |
-| :--- | :--- | :--- |
-| **W, A, S, D** / Arrows | Move / Steer | Walk on foot, steer bike or car |
-| **Shift** | Sprint / Turbo | Sprint on foot, high-speed acceleration on vehicles |
-| **Space** | Jump / Handbrake | Jump on foot, sharp handbrake when driving |
-| **F** | Mount / Dismount | Enter/Exit the Classic Motorcycle or Vintage Car |
-| **M** | World Map | Open/Close full-screen Kerala State Atlas & Fast Travel |
-| **C** | Camera Mode | Cycle between Third-Person Close, Far Chase, and Cockpit view |
-| **H** | Horn | Authentic Kerala vehicle horn (Pip-pip / Dual-tone Honk) |
-| **L** | Headlight | Toggle high-beam illumination |
-| **R** | Reset Vehicle | Right vehicle if overturned |
-| **Mouse** | 360° Look | Look around and orbit camera smoothly |
+### NYC buildings and subways
 
-### 📱 Mobile & Touch Controls
+Manhattan building footprints extruded in 3D and colored by construction era, with the MTA subway lines and stations on top and a legend generated automatically from the layers' symbology.
 
-The game features automatic mobile device and touch screen detection:
+[![Manhattan buildings extruded in 3D and colored by construction era, with MTA subway lines and stations and an auto-generated legend](https://assets.geolibre.app/images/nyc-buildings.webp)](https://assets.geolibre.app/images/nyc-buildings.webp)
 
-* **Virtual Analog Joystick (Bottom-Left)**: Smooth thumb navigation to walk, steer, accelerate, and reverse.
-* **Touch Look (Right Half of Screen)**: Swipe across the screen to orbit the 360° camera freely without pointer lock.
-* **Pinch to Zoom**: Two-finger pinch gesture to cycle camera perspective.
-* **Contextual Action Buttons (Bottom-Right)**:
-  - **RIDE / DRIVE / DISMOUNT**: Large tactile button that pulses when near a vehicle or seated.
-  - **JUMP / HANDBRAKE**: Jump on foot, or sharp drift brake when driving.
-  - **SPRINT / TURBO**: Boost speed on foot or high-velocity throttle in vehicles.
-* **Quick Pill Toolbar (Top-Right)**: One-tap buttons for Camera View (`VIEW`), Horn (`HORN`), Headlights (`LIGHT`), Vehicle Reset (`RESET`), and Fullscreen (`FULL`).
-* **Responsive Layout**: Adapts automatically to phone portrait and landscape screens with notch/safe-area support (`env(safe-area-inset)`).
+The animation below runs the Time Slider along the buildings' construction year, from 1850 to 2025, so Manhattan fills in era by era. Click it to play the full-quality video.
 
----
+[![Animation of Manhattan buildings appearing by construction year as the Time Slider advances from 1850 to 2025](https://assets.geolibre.app/demos/nyc-buildings-gif.gif)](https://assets.geolibre.app/demos/nyc-buildings.webm)
 
-## 🏛️ Manjeri Localities & Major Landmarks
+[Open the live project](https://share.geolibre.app/giswqs/nyc-buildings-and-subways)
 
-1. **Kacherippadi Town Center & Junction (Center)**
-   - The bustling heart of Manjeri where SH 28 (Calicut Road), Nilambur Road, Pandikkad Road, and SH 71 converge.
-   - Traditional *Aalthara* banyan tree, KSRTC passenger shelter, and evening *Thattukada* tea stalls.
-   - Multi-story commercial streetfront shopping plazas.
+### Planetary basemaps
 
-2. **Court Road & Judicial Complex (South-East Plateau)**
-   - Colonial & Kerala-style District & Sessions Court Complex with majestic portico pillars, pediment, and flagpole.
-   - Manjeri Head Post Office and advocate office avenues.
+GeoLibre is not limited to Earth. Planetary basemaps from OpenPlanetaryMap and USGS Astrogeology cover the Moon, Mars, Mercury, Venus, the Galilean moons (Io, Europa, Ganymede, Callisto), Titan, Pluto, and Charon, with a per-project ellipsoid so distance, area, and scale measurements match the body you are mapping. The deep-space starfield behind each globe comes from the Atmosphere Effects plugin.
 
-3. **Melakkam & Govt. Medical College Hospital (North-West Ridge)**
-   - High-altitude ridge overlooking the town, home to the sprawling Government Medical College Hospital Manjeri.
-   - Dedicated Emergency / Trauma care entrance canopy, patient ward wings, and hilltop residential villas.
+<table>
+  <tr>
+    <td width="33%"><a href="https://assets.geolibre.app/images/earth.webp"><img src="https://assets.geolibre.app/images/earth.webp" alt="GeoLibre globe view of Earth over a starfield backdrop"></a></td>
+    <td width="33%"><a href="https://assets.geolibre.app/images/moon.webp"><img src="https://assets.geolibre.app/images/moon.webp" alt="GeoLibre globe view of the Moon over a starfield backdrop"></a></td>
+    <td width="33%"><a href="https://assets.geolibre.app/images/mars.webp"><img src="https://assets.geolibre.app/images/mars.webp" alt="GeoLibre globe view of Mars over a starfield backdrop"></a></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Earth</b></td>
+    <td align="center"><b>Moon</b></td>
+    <td align="center"><b>Mars</b></td>
+  </tr>
+  <tr>
+    <td width="33%"><a href="https://assets.geolibre.app/images/mercury.webp"><img src="https://assets.geolibre.app/images/mercury.webp" alt="GeoLibre globe view of Mercury over a starfield backdrop"></a></td>
+    <td width="33%"><a href="https://assets.geolibre.app/images/pluto.webp"><img src="https://assets.geolibre.app/images/pluto.webp" alt="GeoLibre globe view of Pluto over a starfield backdrop"></a></td>
+    <td width="33%"><a href="https://assets.geolibre.app/images/venus.webp"><img src="https://assets.geolibre.app/images/venus.webp" alt="GeoLibre globe view of Venus over a starfield backdrop"></a></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Mercury</b></td>
+    <td align="center"><b>Pluto</b></td>
+    <td align="center"><b>Venus</b></td>
+  </tr>
+  <tr>
+    <td width="33%"><a href="https://assets.geolibre.app/images/europa.webp"><img src="https://assets.geolibre.app/images/europa.webp" alt="GeoLibre globe view of Europa over a starfield backdrop"></a></td>
+    <td width="33%"><a href="https://assets.geolibre.app/images/callisto.webp"><img src="https://assets.geolibre.app/images/callisto.webp" alt="GeoLibre globe view of Callisto over a starfield backdrop"></a></td>
+    <td width="33%"><a href="https://assets.geolibre.app/images/charon.webp"><img src="https://assets.geolibre.app/images/charon.webp" alt="GeoLibre globe view of Charon over a starfield backdrop"></a></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Europa</b></td>
+    <td align="center"><b>Callisto</b></td>
+    <td align="center"><b>Charon</b></td>
+  </tr>
+</table>
 
-4. **Indira Gandhi Bus Terminal (New Bus Stand) & Old Bus Stand**
-   - Modern IGBT transport hub with wide concourse canopy and parked KSRTC buses.
-   - Historic Old Bus Stand commercial arcade with lively fruit, textile, and spice markets.
+Switch bodies from the planet switcher in the Layers panel. See [Demos](https://geolibre.app/demos/) for more.
 
-5. **Historic Cultural Heritage**
-   - Historic Manjeri Town Juma Masjid featuring dual minarets and central emerald dome.
-   - Karnakkaparambu Temple with granite *Chuttambalam*, copper-toned *Sreekovil*, and brass *Deepastambham*.
+### Video tutorials
 
-6. **Cherupuzha River & Anakkayam Bridge (South)**
-   - Kadalundi River tributary lowlands with coconut groves, sandy riverbanks, and concrete bridge crossing on SH 71.
+- [GeoLibre 1.0: A Free, Open-Source Cloud-Native GIS That Runs Anywhere (Browser, Desktop & Jupyter)](https://youtu.be/87Cm0QagtxI)
+- [Geoprocessing in the Browser: 700+ Free GIS Tools in GeoLibre, Zero Install](https://youtu.be/W32bIQO_nG8)
+- [Access Free High-Resolution Disaster Satellite Imagery in Your Browser](https://youtu.be/QQ9i5CTNh84)
+- [Regularize Building Footprints in the Browser with GeoLibre](https://youtu.be/xjfPYxgEEEc)
+- [GeoLibre + GeoLens: A Modern GIS Stack for Self-Hosting Geospatial Data](https://youtu.be/kQqgrxXGd4o)
+- [Create Reusable GIS Workflows with GeoLibre Model Builder and AI Assistant](https://youtu.be/dzjNKM6slgs)
+- [Mapping the 2026 Nepal Floods with Free High-Resolution Satellite Imagery](https://youtu.be/UDO1BCwOAAc)
+- [Building Cloud-Native GIS Workflows with GeoLibre](https://youtu.be/RgNoKsvZ5Hk)
+- [Image Georeferencing Using GeoLibre in the Browser](https://youtu.be/lbioujkDSG0)
 
-7. **Vettekkode Scenic Hills (East)**
-   - Elevated laterite hill summit ($78\text{m}$) offering panoramic views of the entire Manjeri valley.
+All of them, with chapters and summaries, are on the [Video Tutorials](https://geolibre.app/tutorials/videos/) page.
 
----
+## Geoprocessing: 1,000+ tools, zero install
 
-## 🚀 Running the Project
+[![The GeoLibre Whitebox toolbox running locally with WebAssembly, listing the full catalog of 1,000+ tools with the Regularize Building Footprints tool selected](https://assets.geolibre.app/images/whitebox.webp)](https://assets.geolibre.app/images/whitebox.webp)
 
-```bash
-# Install dependencies
-npm install
+**Processing → Whitebox Toolbox** opens a toolbox of **1,000+ geoprocessing tools** that
+execute in the browser through a WebAssembly runtime with native raster and
+vector I/O. There is no Python sidecar to install and no server to call — the
+tools, your data, and the results all stay on your machine, so the full toolbox
+is available on [GeoLibre Web](https://web.geolibre.app/), on the desktop app,
+and on Android alike.
 
-# Start development server
-npm run dev
+The tools come from the [Whitebox Next Gen](https://github.com/opengeos/Whitebox-Next-Gen-ArcGIS)
+suite plus GeoLibre's own WASM tools, and are browsable by category straight from
+the Processing menu:
 
-# Build for production
-npm run build
+| Category | Tools | Examples |
+| --- | --- | --- |
+| **Vector** | 313 | overlays, buffers, joins, cleaning, topology, generalization |
+| **Raster** | 256 | algebra, filters, reclassification, zonal and focal statistics |
+| **Remote sensing** | 154 | spectral indices, band math, classification, change detection |
+| **Hydrology** | 100 | flow accumulation, watersheds, stream networks, depression filling |
+| **Terrain** | 99 | slope, aspect, hillshade, curvature, ruggedness, viewsheds |
+| **LiDAR** | 65 | point-cloud filtering, ground classification, DEM/DSM generation |
+| **Conversion** | 49 | format translation to cloud-native GeoParquet, PMTiles, and COG |
+| **Network** | 26 | connectivity, cost distance, and routing analysis |
+| **Projection** | 4 | reprojection for raster and vector data |
 
-# Preview production build
-npm run preview
-```
+Any tool is deep-linkable with a `?tool=` URL parameter that preselects it and
+pre-fills its form. See the [Processing Tools guide](https://geolibre.app/user-guide/processing/#whitebox-toolbox)
+for details, and [Geoprocessing in the Browser](https://youtu.be/W32bIQO_nG8) for
+a video walkthrough.
 
-Open `http://localhost:3000` in your web browser.
+## Documentation
+
+Full documentation, including the User Guide and Tutorials, is published at
+**[geolibre.app](https://geolibre.app)**.
+
+- **[Getting Started](https://geolibre.app/getting-started/)** - use GeoLibre on the web, desktop, Android, iOS, or in Jupyter; run it from source; run it with Docker; and configure optional credentials.
+- **[Features](https://geolibre.app/features/)** - the complete, feature-by-feature list of what GeoLibre can do today.
+- **[Demos](https://geolibre.app/demos/)** - a visual tour: 3D Tiles, 3D city data, planetary basemaps, the SQL Workspace, and embeds.
+- **[Downloads](https://geolibre.app/downloads/)** - installers and package managers for Windows, macOS, and Linux.
+- **[User Guide](https://geolibre.app/user-guide/interface/)** - a feature-by-feature reference for the interface, adding data, layers, styling, the attribute table, map controls, processing, the SQL Workspace, data integrations, plugins, settings, and embedding.
+- **[Tutorials](https://geolibre.app/tutorials/)** - hands-on, end-to-end workflows: your first map, cloud-native data, vector analysis, terrain analysis, spatial SQL, and sharing and embedding.
+- **Reference**
+  - [Architecture](docs/architecture.md)
+  - [Android](docs/android.md)
+  - [iOS](docs/ios.md)
+  - [Project format](docs/project-format.md)
+  - [Plugin API](docs/plugin-api.md)
+  - [UI Profiles](docs/ui-profiles.md)
+  - [Internationalization](docs/i18n.md)
+  - [Python package (Jupyter)](docs/python.md)
+  - [R package (RStudio, Quarto, and Shiny)](docs/r.md)
+  - [Notebook Panel](docs/notebook.md)
+  - [Roadmap](docs/roadmap.md)
+  - [Contributing](docs/contributing.md)
+  - [How to Cite](docs/citation.md)
+  - [Become a Sponsor](docs/sponsor.md)
+
+Contributions are welcome. See the [Contributing](docs/contributing.md) guide
+for the development setup, repository layout, and quality gate.
+
+## Sponsor
+
+GeoLibre is free and open source, and stays that way. If it is useful to you or your team, sponsorship is the most direct way to keep development, hosting, and cross-platform distribution going.
+
+- [**GitHub Sponsors**](https://github.com/sponsors/giswqs) - monthly or one-time, billed through your GitHub account.
+- [**Buy Me a Coffee**](https://buymeacoffee.com/giswqs) - a quick one-off contribution, no account required.
+
+See the [Become a Sponsor](https://geolibre.app/sponsor/) page for what sponsorship supports and for other, free ways to help.
+
+## Acknowledgements
+
+GeoLibre is built on the free and open-source geospatial and web communities — including MapLibre GL JS, deck.gl, DuckDB-WASM Spatial, Turf.js, Tauri, React, and many more. See the full [Acknowledgements](https://geolibre.app/acknowledgements/) page for the complete list of projects and community contributors.
+
+- The **Atmosphere Effects** plugin (deep-space backdrop, parallax starfield, comets, and the globe atmosphere halo) adapts the technique and visual design from [Leonel Dias](https://leoneljdias.github.io/)'s article [*Globe atmosphere, halo, and comets*](https://leoneljdias.github.io/posts/globe-atmosphere-halo-comets/) — the layered Canvas 2D approach, the halo gradient and "screen" blend, the limb-sampling that keeps the halo aligned under pitch, and the starfield/comet parameters.
+- **Community contributors** — thanks to [**Ryanphoenix**](https://github.com/Ryanphoenix) for many valued contributions, including issue reports, feedback, and improvements.
+- **Beta testers** — thanks to [**René van der Velde**](https://github.com/renevandervelde) (Netherlands) for early testing, detailed bug reports, and feature requests.
+
+## Citation
+
+If you use GeoLibre in your work, please cite it. GeoLibre is archived on [Zenodo](https://zenodo.org/), which mints a DOI for every release. The concept DOI below always resolves to the latest version.
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20785400.svg)](https://doi.org/10.5281/zenodo.20785400)
+
+> Wu, Q. (2026). GeoLibre: A lightweight, cloud-native GIS platform for visualizing, exploring, and analyzing geospatial data. Zenodo. <https://doi.org/10.5281/zenodo.20785400>
+
+You can also use GitHub's **"Cite this repository"** button (which reads [`CITATION.cff`](CITATION.cff)) to copy a ready-made APA or BibTeX entry. See the [How to Cite](https://geolibre.app/citation/) page for more formats.
+
+## License
+
+[MIT](LICENSE)
