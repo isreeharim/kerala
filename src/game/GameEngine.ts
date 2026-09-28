@@ -1,6 +1,7 @@
 import * as Cesium from 'cesium';
 import { CesiumViewerManager } from '../cesium/CesiumViewer';
-import { loadGooglePhotorealistic3DTileset } from '../cesium/GoogleTileset';
+import { GeoLibreBasemapManager, BasemapType } from '../geolibre/GeoLibreBasemap';
+import { loadGooglePhotorealistic3DTileset, hasGoogleMapsApiKey } from '../cesium/GoogleTileset';
 import { PlayerController } from '../player/PlayerController';
 import { ThirdPersonCamera } from '../camera/ThirdPersonCamera';
 import { InputManager } from './InputManager';
@@ -11,7 +12,15 @@ export type GameStatus = 'INITIALIZING' | 'LOADING_TILES' | 'SPAWNING_PLAYER' | 
 export interface GameEngineCallbacks {
   onStatusChange?: (status: GameStatus, message?: string) => void;
   onError?: (error: Error) => void;
-  onPlayerStats?: (stats: { speedKmH: number; lat: number; lon: number; alt: number }) => void;
+  onPlayerStats?: (stats: {
+    speedKmH: number;
+    lat: number;
+    lon: number;
+    alt: number;
+    headingDeg: number;
+    activeBasemap: BasemapType;
+  }) => void;
+  onBasemapChange?: (basemap: BasemapType) => void;
 }
 
 export class GameEngine {
@@ -20,6 +29,7 @@ export class GameEngine {
   private callbacks: GameEngineCallbacks;
 
   private viewerManager!: CesiumViewerManager;
+  private basemapManager!: GeoLibreBasemapManager;
   private input!: InputManager;
   private player!: PlayerController;
   private cameraController!: ThirdPersonCamera;
@@ -38,13 +48,26 @@ export class GameEngine {
     try {
       this.updateStatus('INITIALIZING', 'Initializing Cesium 3D Globe...');
 
-      // 1. Initialize Cesium Viewer
+      // 1. Initialize Cesium Viewer & GeoLibre Basemap Manager
       this.viewerManager = new CesiumViewerManager(this.container);
+      this.basemapManager = new GeoLibreBasemapManager(this.viewerManager.viewer);
 
-      // 2. Load Google Photorealistic 3D Tiles
-      this.updateStatus('LOADING_TILES', 'Connecting to Google Photorealistic 3D Tiles...');
-      this.tileset = await loadGooglePhotorealistic3DTileset();
-      this.viewerManager.viewer.scene.primitives.add(this.tileset);
+      // 2. Load Google Photorealistic 3D Tiles if key is present, or fallback seamlessly to GeoLibre
+      if (hasGoogleMapsApiKey()) {
+        try {
+          this.updateStatus('LOADING_TILES', 'Connecting to Google Photorealistic 3D Tiles...');
+          this.tileset = await loadGooglePhotorealistic3DTileset();
+          this.viewerManager.viewer.scene.primitives.add(this.tileset);
+          this.basemapManager.setGoogleTileset(this.tileset);
+          await this.basemapManager.switchBasemap('google-3d');
+        } catch (tilesError) {
+          console.warn('Google 3D Tiles unavailable, activating GeoLibre Keyless Satellite...', tilesError);
+          await this.basemapManager.switchBasemap('esri-satellite');
+        }
+      } else {
+        this.updateStatus('LOADING_TILES', 'Activating GeoLibre Keyless Satellite Imagery...');
+        await this.basemapManager.switchBasemap('esri-satellite');
+      }
 
       // 3. Position view and spawn player at Manjeri, Kerala (11.12° N, 76.12° E)
       this.updateStatus('SPAWNING_PLAYER', 'Locating ground level in Manjeri...');
@@ -129,17 +152,45 @@ export class GameEngine {
     // 3. Update third-person follow camera
     this.cameraController.update(this.player.cartesianPosition, delta);
 
-    // 4. Emit stats for HUD
+    // 4. Emit stats for HUD and Minimap
     if (this.callbacks.onPlayerStats) {
       this.callbacks.onPlayerStats({
         speedKmH: this.player.getSpeedKmH(),
         lat: this.player.latitude,
         lon: this.player.longitude,
-        alt: this.player.height
+        alt: this.player.height,
+        headingDeg: (this.player.heading * 180) / Math.PI,
+        activeBasemap: this.basemapManager?.getCurrentBasemap() ?? 'esri-satellite'
       });
     }
 
     this.animationFrameId = requestAnimationFrame(this.loop);
+  }
+
+  public async switchBasemap(type: BasemapType): Promise<void> {
+    if (!this.basemapManager) return;
+
+    if (type === 'google-3d' && !this.tileset) {
+      if (hasGoogleMapsApiKey()) {
+        try {
+          this.tileset = await loadGooglePhotorealistic3DTileset();
+          this.viewerManager.viewer.scene.primitives.add(this.tileset);
+          this.basemapManager.setGoogleTileset(this.tileset);
+        } catch (err) {
+          console.error('Failed to load Google 3D tiles on demand:', err);
+          throw err;
+        }
+      } else {
+        throw new Error('Google Maps Platform API key is required for Google 3D Tiles.');
+      }
+    }
+
+    await this.basemapManager.switchBasemap(type);
+    this.callbacks.onBasemapChange?.(type);
+  }
+
+  public getCurrentBasemap(): BasemapType {
+    return this.basemapManager?.getCurrentBasemap() ?? 'esri-satellite';
   }
 
   public requestPointerLock(): void {

@@ -4,6 +4,10 @@ import { GameHUD } from './components/GameHUD';
 import { LoadingOverlay } from './components/LoadingOverlay';
 import { ApiKeyModal } from './components/ApiKeyModal';
 import { AttributionBar } from './components/AttributionBar';
+import { GeoLibreLayerControl } from './components/GeoLibreLayerControl';
+import { MinimapWidget } from './components/MinimapWidget';
+import { BasemapType } from './geolibre/GeoLibreBasemap';
+import { hasGoogleMapsApiKey } from './cesium/GoogleTileset';
 import { MANJERI_CENTER } from './utils/coordinates';
 
 export const App: React.FC = () => {
@@ -11,21 +15,27 @@ export const App: React.FC = () => {
   const engineRef = useRef<GameEngine | null>(null);
 
   const [gameStatus, setGameStatus] = useState<GameStatus>('INITIALIZING');
-  const [statusMessage, setStatusMessage] = useState<string>('Initializing Cesium...');
+  const [statusMessage, setStatusMessage] = useState<string>('Initializing Cesium & GeoLibre...');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isPointerLocked, setIsPointerLocked] = useState<boolean>(false);
+  const [isKeyModalOpen, setIsKeyModalOpen] = useState<boolean>(false);
+  const [showMinimap, setShowMinimap] = useState<boolean>(true);
+  const [activeBasemap, setActiveBasemap] = useState<BasemapType>(
+    hasGoogleMapsApiKey() ? 'google-3d' : 'esri-satellite'
+  );
 
   const [playerStats, setPlayerStats] = useState({
     speedKmH: 0,
     lat: MANJERI_CENTER.latitude,
     lon: MANJERI_CENTER.longitude,
-    alt: MANJERI_CENTER.height
+    alt: MANJERI_CENTER.height,
+    headingDeg: 0,
+    activeBasemap: activeBasemap
   });
 
   const launchEngine = useCallback(() => {
     if (!containerRef.current) return;
 
-    // Clean up existing engine instance if any
     if (engineRef.current) {
       engineRef.current.destroy();
       engineRef.current = null;
@@ -40,11 +50,16 @@ export const App: React.FC = () => {
         if (message) setStatusMessage(message);
       },
       onError: (error) => {
+        // If critical failure, show error
         setGameStatus('ERROR');
         setErrorMessage(error.message);
       },
       onPlayerStats: (stats) => {
         setPlayerStats(stats);
+        setActiveBasemap(stats.activeBasemap);
+      },
+      onBasemapChange: (bm) => {
+        setActiveBasemap(bm);
       }
     });
 
@@ -73,9 +88,24 @@ export const App: React.FC = () => {
     engineRef.current?.requestPointerLock();
   };
 
+  const handleSelectBasemap = async (type: BasemapType) => {
+    if (!engineRef.current) return;
+    try {
+      await engineRef.current.switchBasemap(type);
+      setActiveBasemap(type);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      if (type === 'google-3d') {
+        setIsKeyModalOpen(true);
+      } else {
+        alert(msg);
+      }
+    }
+  };
+
   const handleRetryWithKey = (key: string) => {
-    // Set in session storage or override env for immediate testing
     (import.meta.env as Record<string, string>).VITE_GOOGLE_MAPS_API_KEY = key;
+    setIsKeyModalOpen(false);
     launchEngine();
   };
 
@@ -95,7 +125,7 @@ export const App: React.FC = () => {
         <LoadingOverlay status={gameStatus} message={statusMessage} />
       )}
 
-      {/* Error / Missing API Key Modal */}
+      {/* Error Modal (for fatal errors) */}
       {gameStatus === 'ERROR' && (
         <ApiKeyModal
           errorMessage={errorMessage || undefined}
@@ -103,18 +133,50 @@ export const App: React.FC = () => {
         />
       )}
 
-      {/* Gameplay HUD */}
-      {gameStatus === 'READY' && (
-        <GameHUD
-          stats={playerStats}
-          isPointerLocked={isPointerLocked}
-          onRequestPointerLock={handleRequestPointerLock}
-        />
+      {/* Optional API Key Modal opened from layer switcher */}
+      {isKeyModalOpen && (
+        <div style={{ position: 'relative', zIndex: 110 }}>
+          <ApiKeyModal
+            errorMessage="To view photorealistic 3D buildings from Google, enter your Google Maps API key below or switch back to GeoLibre Satellite."
+            onRetryWithKey={handleRetryWithKey}
+          />
+        </div>
       )}
 
-      {/* Google Attribution Bar (always visible) */}
-      <AttributionBar />
+      {/* Gameplay HUD */}
+      {gameStatus === 'READY' && (
+        <>
+          <GameHUD
+            stats={playerStats}
+            isPointerLocked={isPointerLocked}
+            onRequestPointerLock={handleRequestPointerLock}
+          />
+
+          {/* GeoLibre Floating Layer Controller */}
+          <GeoLibreLayerControl
+            currentBasemap={activeBasemap}
+            onSelectBasemap={handleSelectBasemap}
+            showMinimap={showMinimap}
+            onToggleMinimap={() => setShowMinimap(!showMinimap)}
+            hasGoogleKey={hasGoogleMapsApiKey()}
+            onOpenKeyModal={() => setIsKeyModalOpen(true)}
+          />
+
+          {/* MapLibre 2D GPS Minimap in bottom right */}
+          {showMinimap && (
+            <MinimapWidget
+              longitude={playerStats.lon}
+              latitude={playerStats.lat}
+              headingDeg={playerStats.headingDeg}
+            />
+          )}
+        </>
+      )}
+
+      {/* Dynamic Attribution Bar */}
+      <AttributionBar activeBasemap={activeBasemap} />
     </div>
   );
 };
+
 export default App;

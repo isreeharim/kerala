@@ -13,6 +13,11 @@ export interface GoogleTilesetOptions {
  * 2. Does NOT hardcode the key in code (reads from VITE_GOOGLE_MAPS_API_KEY).
  * 3. Keeps Google's required attribution visible.
  */
+export function hasGoogleMapsApiKey(): boolean {
+  const key = (import.meta.env.VITE_GOOGLE_MAPS_API_KEY || '').trim();
+  return Boolean(key && key !== 'YOUR_GOOGLE_MAPS_API_KEY_HERE' && key.length > 5);
+}
+
 export async function loadGooglePhotorealistic3DTileset(
   options: GoogleTilesetOptions = {}
 ): Promise<Cesium.Cesium3DTileset> {

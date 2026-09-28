@@ -16,6 +16,10 @@ export class PlayerController {
   public runSpeed: number = 9.5;
   private currentSpeed: number = 0;
 
+  public get heading(): number {
+    return this.model?.heading ?? 0;
+  }
+
   // Jump and vertical physics
   public isGrounded: boolean = true;
   private verticalVelocity: number = 0;
