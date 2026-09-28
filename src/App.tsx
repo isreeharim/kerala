@@ -150,6 +150,7 @@ export const App: React.FC = () => {
             stats={playerStats}
             isPointerLocked={isPointerLocked}
             onRequestPointerLock={handleRequestPointerLock}
+            onTeleport={(lon, lat) => engineRef.current?.teleportTo(lon, lat)}
           />
 
           {/* GeoLibre Floating Layer Controller */}

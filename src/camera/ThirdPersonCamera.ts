@@ -82,9 +82,13 @@ export class ThirdPersonCamera {
     const up = new Cesium.Cartesian3(worldUp4.x, worldUp4.y, worldUp4.z);
     Cesium.Cartesian3.normalize(up, up);
 
-    // Apply to Cesium camera
-    this.viewer.camera.position = this.currentCameraPos;
-    this.viewer.camera.direction = direction;
-    this.viewer.camera.up = up;
+    // Apply to Cesium camera using setView so the view matrix actually updates
+    this.viewer.camera.setView({
+      destination: this.currentCameraPos,
+      orientation: {
+        direction: direction,
+        up: up
+      }
+    });
   }
 }

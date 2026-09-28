@@ -99,9 +99,14 @@ export class InputManager {
     if (code === 'Space') this.state.jump = false;
   }
 
+  private lastMouseX: number = 0;
+  private lastMouseY: number = 0;
+
   private onMouseDown(e: MouseEvent): void {
     if (e.button === 0 || e.button === 2) {
       this.isMouseDown = true;
+      this.lastMouseX = e.clientX;
+      this.lastMouseY = e.clientY;
       // Auto request pointer lock on left click if not locked
       if (e.button === 0 && !this.isPointerLocked) {
         this.requestPointerLock();
@@ -114,10 +119,16 @@ export class InputManager {
   }
 
   private onMouseMove(e: MouseEvent): void {
-    // Only accumulate camera rotation if pointer is locked OR mouse is being dragged
-    if (this.isPointerLocked || this.isMouseDown) {
+    if (this.isPointerLocked) {
       this.mouseDeltaX += e.movementX;
       this.mouseDeltaY += e.movementY;
+    } else if (this.isMouseDown) {
+      const dx = (typeof e.movementX === 'number' && e.movementX !== 0) ? e.movementX : (e.clientX - this.lastMouseX);
+      const dy = (typeof e.movementY === 'number' && e.movementY !== 0) ? e.movementY : (e.clientY - this.lastMouseY);
+      this.mouseDeltaX += dx;
+      this.mouseDeltaY += dy;
+      this.lastMouseX = e.clientX;
+      this.lastMouseY = e.clientY;
     }
   }
 

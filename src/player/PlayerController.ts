@@ -134,15 +134,24 @@ export class PlayerController {
       const clamped = this.viewer.scene.clampToHeight(this.cartesianPosition);
       if (clamped) {
         const carto = Cesium.Cartographic.fromCartesian(clamped);
-        if (carto && carto.height > 0) {
-          // Smooth ground height adaptation to prevent jerky stairs
+        if (carto && typeof carto.height === 'number') {
           const targetGround = carto.height;
-          if (Math.abs(targetGround - this.groundHeight) < 15.0) {
-            this.groundHeight += (targetGround - this.groundHeight) * 0.25;
+          if (Math.abs(targetGround - this.groundHeight) < 25.0) {
+            this.groundHeight += (targetGround - this.groundHeight) * 0.3;
           } else {
             this.groundHeight = targetGround;
           }
+          return;
         }
+      }
+
+      // Fallback to globe height or ellipsoid surface (0)
+      const cartoPos = Cesium.Cartographic.fromDegrees(this.longitude, this.latitude);
+      const globeHeight = this.viewer.scene.globe.getHeight(cartoPos);
+      if (typeof globeHeight === 'number' && !isNaN(globeHeight)) {
+        this.groundHeight = globeHeight;
+      } else {
+        this.groundHeight = 0.0;
       }
     } catch {}
   }
@@ -150,6 +159,11 @@ export class PlayerController {
   public setLocation(longitude: number, latitude: number, height?: number): void {
     this.longitude = longitude;
     this.latitude = latitude;
+    this.velocityEast = 0;
+    this.velocityNorth = 0;
+    this.verticalVelocity = 0;
+    this.isGrounded = true;
+
     if (typeof height === 'number') {
       this.height = height;
       this.groundHeight = height;
@@ -157,6 +171,7 @@ export class PlayerController {
     this.cartesianPosition = degreesToCartesian(this.longitude, this.latitude, this.height);
     this.model.setPosition(this.cartesianPosition);
     this.model.updateTransform(0, false, false);
+    this.sampleGroundElevation();
   }
 
   public getSpeedKmH(): number {

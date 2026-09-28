@@ -87,13 +87,13 @@ export class CesiumViewerManager {
       // fallback to globe or default
     }
 
-    // 2. Fallback to globe height
+    // 2. Fallback to globe height (e.g. 0 on ellipsoid)
     const globeHeight = this.viewer.scene.globe.getHeight(cartographic);
-    if (typeof globeHeight === 'number' && globeHeight > 0) {
+    if (typeof globeHeight === 'number' && !isNaN(globeHeight)) {
       return globeHeight;
     }
 
-    return MANJERI_CENTER.height;
+    return 0.0;
   }
 
   /**

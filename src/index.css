@@ -867,3 +867,92 @@ input:checked + .slider:before {
   cursor: pointer;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
 }
+
+/* Fast travel quick buttons */
+.hud-fast-travel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(13, 27, 19, 0.75);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  padding: 4px 10px;
+  width: fit-content;
+}
+
+.fast-travel-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #34d399;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.fast-travel-buttons {
+  display: flex;
+  gap: 6px;
+}
+
+.btn-fast-travel-pill {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(52, 211, 153, 0.3);
+  color: #ecfdf5;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: 'Outfit', sans-serif;
+}
+
+.btn-fast-travel-pill:hover {
+  background: #10b981;
+  color: #064e3b;
+  border-color: #10b981;
+  transform: translateY(-1px);
+}
+
+/* Speedometer Badge in HUD */
+.hud-speedometer-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(13, 27, 19, 0.85);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(52, 211, 153, 0.35);
+  border-radius: 14px;
+  padding: 8px 14px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  width: fit-content;
+  margin-bottom: 8px;
+}
+
+.speedo-number {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 28px;
+  font-weight: 800;
+  color: #ecfdf5;
+  line-height: 1;
+  min-width: 38px;
+  text-align: right;
+}
+
+.speedo-unit-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.speedo-unit {
+  font-size: 10px;
+  font-weight: 800;
+  color: #34d399;
+  letter-spacing: 1px;
+}
+
+.speedo-sub {
+  font-size: 9px;
+  color: #9ca3af;
+  font-weight: 500;
+}

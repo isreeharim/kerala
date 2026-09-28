@@ -95,8 +95,8 @@ export class GameEngine {
       // Disable default Cesium camera navigation in favor of our third-person gameplay camera
       this.viewerManager.setGameControlsMode(true);
 
-      // 6. Smooth introductory fly-to Manjeri
-      await this.performIntroFlight();
+      // 6. Frame player immediately with third-person camera
+      this.cameraController.update(this.player.cartesianPosition, 1.0);
 
       this.updateStatus('READY', 'Explore Manjeri, Kerala');
 
@@ -195,6 +195,11 @@ export class GameEngine {
 
   public requestPointerLock(): void {
     this.input?.requestPointerLock();
+  }
+
+  public teleportTo(longitude: number, latitude: number): void {
+    if (!this.player) return;
+    this.player.setLocation(longitude, latitude);
   }
 
   private updateStatus(status: GameStatus, message?: string): void {
